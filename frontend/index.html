@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexa AI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>✦ Nexa AI</h1>
+        <p>Chat • Programátor • Obrázky</p>
+    </header>
+
+    <nav>
+        <button onclick="setMode('chat')">💬 Chat</button>
+        <button onclick="setMode('code')">💻 Programátor</button>
+        <button onclick="setMode('image')">🎨 Obrázky</button>
+    </nav>
+
+    <main>
+        <div id="messages"></div>
+
+        <div class="input-area">
+            <textarea
+                id="message"
+                placeholder="Napíš správu pre Nexu..."
+            ></textarea>
+
+            <button id="send" onclick="sendMessage()">
+                Odoslať
+            </button>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
