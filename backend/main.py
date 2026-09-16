@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+from chat import generate_response
+
+
 app = FastAPI(
     title="Nexa AI",
     description="Nexa AI – chatbot, AI programátor a generovanie obrázkov",
@@ -37,14 +40,8 @@ def health():
 
 @app.post("/chat", response_model=ChatResponse)
 def chat(request: ChatRequest):
-    message = request.message.strip()
+    response = generate_response(request.message)
 
-    if not message:
-        return ChatResponse(
-            response="Ahoj! Som Nexa AI. Napíš mi správu."
-        )
-
-    # TODO: Neskôr sem pripojíme skutočný AI model.
     return ChatResponse(
-        response=f"Nexa AI rozumie tvojej správe: {message}"
+        response=response
     )
