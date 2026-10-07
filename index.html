@@ -22,7 +22,6 @@
       --muted: #969eac;
       --accent: #8b7cff;
       --accent2: #5e9cff;
-      --danger: #ef5350;
     }
 
     body {
@@ -115,7 +114,8 @@
       text-overflow: ellipsis;
     }
 
-    .history-item:hover {
+    .history-item:hover,
+    .history-item.active {
       background: var(--surface-hover);
     }
 
@@ -273,7 +273,7 @@
       color: white;
     }
 
-    /* ================= ATTACHMENT ================= */
+    /* ================= ATTACHMENTS ================= */
 
     .attachment-preview {
       max-width: 820px;
@@ -445,22 +445,6 @@
       object-fit: contain;
     }
 
-    .modal-actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .modal-actions button {
-      flex: 1;
-      padding: 10px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: var(--surface);
-      color: white;
-      cursor: pointer;
-    }
-
     /* ================= TOAST ================= */
 
     .toast {
@@ -559,6 +543,7 @@
 
     <div class="profile">
       <div class="avatar">U</div>
+
       <div>
         <div class="profile-name">Používateľ</div>
         <div class="profile-status">Nexa AI</div>
@@ -571,7 +556,10 @@
   <main class="main">
 
     <header class="topbar">
-      <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+      <button class="menu-btn" onclick="toggleSidebar()">
+        ☰
+      </button>
 
       <div class="model">
         Nexa AI
@@ -579,17 +567,22 @@
       </div>
 
       <div></div>
+
     </header>
 
     <section class="chat" id="chat">
 
       <div class="welcome" id="welcome">
+
         <h1>
-          Ahoj, som <span class="gradient">Nexa AI</span>.
+          Ahoj, som
+          <span class="gradient">Nexa AI</span>.
         </h1>
+
         <p>
           Ako ti dnes môžem pomôcť?
         </p>
+
       </div>
 
       <div class="messages" id="messages"></div>
@@ -599,13 +592,18 @@
   </main>
 
   <!-- INPUT -->
+
   <div class="input-area">
 
-    <div class="attachment-preview" id="attachmentPreview"></div>
+    <div
+      class="attachment-preview"
+      id="attachmentPreview">
+    </div>
 
     <div class="input-wrapper">
 
-      <!-- PRÍLOHA -->
+      <!-- FILE -->
+
       <button
         class="tool-btn"
         title="Pridať prílohu"
@@ -621,7 +619,8 @@
         onchange="handleFiles(event)"
       >
 
-      <!-- KAMERA -->
+      <!-- CAMERA -->
+
       <button
         class="tool-btn"
         title="Kamera"
@@ -629,7 +628,8 @@
         📷
       </button>
 
-      <!-- OBRAZOVKA -->
+      <!-- SCREEN -->
+
       <button
         class="tool-btn"
         title="Zdieľať obrazovku"
@@ -637,7 +637,8 @@
         🖥️
       </button>
 
-      <!-- MIKROFÓN -->
+      <!-- MICROPHONE -->
+
       <button
         class="tool-btn"
         id="micButton"
@@ -646,12 +647,16 @@
         🎤
       </button>
 
+      <!-- TEXT -->
+
       <textarea
         id="input"
         rows="1"
         placeholder="Napíš správu pre Nexa AI..."
-        onkeydown="handleKey(event)"
-      ></textarea>
+        onkeydown="handleKey(event)">
+      </textarea>
+
+      <!-- SEND -->
 
       <button
         class="send-btn"
@@ -670,42 +675,58 @@
 
 </div>
 
-<!-- CAMERA / SCREEN MODAL -->
+
+<!-- MEDIA MODAL -->
 
 <div class="modal" id="mediaModal">
 
   <div class="modal-box">
 
     <div class="modal-header">
-      <h2 id="mediaTitle">Nexa AI kamera</h2>
 
-      <button class="close-btn" onclick="closeMedia()">
+      <h2 id="mediaTitle">
+        Nexa AI kamera
+      </h2>
+
+      <button
+        class="close-btn"
+        onclick="closeMedia()">
         ×
       </button>
+
     </div>
 
-    <video id="mediaVideo" autoplay playsinline></video>
-
-    <div class="modal-actions">
-      <button onclick="closeMedia()">
-        Zavrieť
-      </button>
-    </div>
+    <video
+      id="mediaVideo"
+      autoplay
+      playsinline>
+    </video>
 
   </div>
 
 </div>
 
+
 <!-- TOAST -->
 
 <div class="toast" id="toast"></div>
 
+
 <script>
 
-  const input = document.getElementById("input");
-  const messages = document.getElementById("messages");
-  const welcome = document.getElementById("welcome");
-  const history = document.getElementById("history");
+  /* ================= STATE ================= */
+
+  const input =
+    document.getElementById("input");
+
+  const messages =
+    document.getElementById("messages");
+
+  const welcome =
+    document.getElementById("welcome");
+
+  const history =
+    document.getElementById("history");
 
   const attachmentPreview =
     document.getElementById("attachmentPreview");
@@ -717,162 +738,51 @@
     document.getElementById("mediaVideo");
 
   let selectedFiles = [];
+
   let currentStream = null;
 
-  /* ================= TEXT ================= */
+  let currentChat = null;
 
-  function handleKey(event) {
+  let chatId = 0;
 
-    if (event.key === "Enter" && !event.shiftKey) {
+  let chats = [];
 
-      event.preventDefault();
 
-      sendMessage();
-    }
+  /* ================= CHAT ================= */
+
+  function createChat() {
+
+    chatId++;
+
+    currentChat = {
+      id: chatId,
+      title: "Nový chat",
+      messages: []
+    };
+
+    chats.push(currentChat);
+
+    updateHistory();
+
+    return currentChat;
   }
 
-  function sendMessage() {
 
-    const text = input.value.trim();
+  function newChat() {
 
-    if (!text && selectedFiles.length === 0) {
+    /*
+      Aktuálny chat sa NEVYTVÁRA pri každej správe.
+      Nový chat vznikne iba po kliknutí na toto tlačidlo.
+    */
+
+    if (
+      currentChat &&
+      currentChat.messages.length === 0
+    ) {
       return;
     }
 
-    welcome.style.display = "none";
-
-    let messageText = text;
-
-    if (selectedFiles.length > 0) {
-
-      const names = selectedFiles
-        .map(file => file.name)
-        .join(", ");
-
-      messageText +=
-        (messageText ? "\n\n" : "") +
-        "📎 Prílohy: " + names;
-    }
-
-    addMessage(messageText, "user");
-
-    input.value = "";
-
-    input.style.height = "auto";
-
-    selectedFiles = [];
-
-    attachmentPreview.innerHTML = "";
-    attachmentPreview.style.display = "none";
-
-    setTimeout(() => {
-
-      addAIMessage(
-        "Ahoj! Som Nexa AI. Zatiaľ používam testovaciu odpoveď. Čoskoro ma môžeme napojiť na skutočný AI model."
-      );
-
-    }, 600);
-  }
-
-  /* ================= MESSAGES ================= */
-
-  function addMessage(text, type) {
-
-    const message = document.createElement("div");
-
-    message.className = `message ${type}`;
-
-    const avatar = document.createElement("div");
-
-    avatar.className = "message-avatar";
-
-    avatar.textContent =
-      type === "user" ? "U" : "N";
-
-    const content = document.createElement("div");
-
-    content.className = "message-content";
-
-    content.textContent = text;
-
-    message.appendChild(avatar);
-    message.appendChild(content);
-
-    messages.appendChild(message);
-
-    scrollChat();
-
-    if (type === "user") {
-      addHistory(text);
-    }
-  }
-
-  function addAIMessage(text) {
-
-    const message = document.createElement("div");
-
-    message.className = "message ai";
-
-    const avatar = document.createElement("div");
-
-    avatar.className = "message-avatar";
-    avatar.textContent = "N";
-
-    const container = document.createElement("div");
-
-    const content = document.createElement("div");
-
-    content.className = "message-content";
-    content.textContent = text;
-
-    const tools = document.createElement("div");
-
-    tools.className = "message-tools";
-
-    const speakButton = document.createElement("button");
-
-    speakButton.textContent = "🔊 Prečítať";
-
-    speakButton.onclick = () => speakText(text);
-
-    tools.appendChild(speakButton);
-
-    container.appendChild(content);
-    container.appendChild(tools);
-
-    message.appendChild(avatar);
-    message.appendChild(container);
-
-    messages.appendChild(message);
-
-    scrollChat();
-  }
-
-  function scrollChat() {
-
-    const chat = document.getElementById("chat");
-
-    chat.scrollTo({
-      top: chat.scrollHeight,
-      behavior: "smooth"
-    });
-  }
-
-  /* ================= HISTORY ================= */
-
-  function addHistory(text) {
-
-    const item = document.createElement("div");
-
-    item.className = "history-item";
-
-    item.textContent =
-      text.replace(/\n/g, " ").slice(0, 40);
-
-    history.prepend(item);
-  }
-
-  function newChat() {
+    createChat();
 
     messages.innerHTML = "";
 
@@ -889,11 +799,309 @@
     input.focus();
   }
 
-  /* ================= FILES ================= */
+
+  function loadChat(id) {
+
+    const chat =
+      chats.find(item => item.id === id);
+
+    if (!chat) return;
+
+    currentChat = chat;
+
+    messages.innerHTML = "";
+
+    if (chat.messages.length === 0) {
+
+      welcome.style.display = "block";
+
+    } else {
+
+      welcome.style.display = "none";
+
+      chat.messages.forEach(message => {
+
+        if (message.type === "ai") {
+
+          renderAIMessage(
+            message.text,
+            false
+          );
+
+        } else {
+
+          renderUserMessage(
+            message.text,
+            false
+          );
+        }
+
+      });
+    }
+
+    updateHistory();
+  }
+
+
+  /* ================= SEND ================= */
+
+  function sendMessage() {
+
+    const text =
+      input.value.trim();
+
+    if (
+      !text &&
+      selectedFiles.length === 0
+    ) {
+      return;
+    }
+
+    /*
+      Ak používateľ začne písať bez toho,
+      aby vytvoril chat, vytvoríme iba jeden
+      aktuálny chat.
+    */
+
+    if (!currentChat) {
+      createChat();
+    }
+
+    welcome.style.display = "none";
+
+    let messageText = text;
+
+    if (selectedFiles.length > 0) {
+
+      const names =
+        selectedFiles
+          .map(file => file.name)
+          .join(", ");
+
+      messageText +=
+        (messageText ? "\n\n" : "") +
+        "📎 Prílohy: " +
+        names;
+    }
+
+    currentChat.messages.push({
+      type: "user",
+      text: messageText
+    });
+
+    if (
+      currentChat.title === "Nový chat"
+    ) {
+
+      currentChat.title =
+        text ||
+        selectedFiles[0]?.name ||
+        "Nový chat";
+    }
+
+    renderUserMessage(
+      messageText,
+      true
+    );
+
+    updateHistory();
+
+    input.value = "";
+
+    input.style.height = "auto";
+
+    selectedFiles = [];
+
+    attachmentPreview.innerHTML = "";
+
+    attachmentPreview.style.display = "none";
+
+
+    /*
+      TESTOVACIA AI ODPOVEĎ
+    */
+
+    setTimeout(() => {
+
+      const response =
+        "Ahoj! Som Nexa AI. Toto je zatiaľ testovacia odpoveď. Neskôr môžeme Nexa AI napojiť na skutočný AI model.";
+
+      currentChat.messages.push({
+        type: "ai",
+        text: response
+      });
+
+      renderAIMessage(
+        response,
+        true
+      );
+
+    }, 600);
+  }
+
+
+  /* ================= RENDER USER ================= */
+
+  function renderUserMessage(
+    text,
+    scroll = true
+  ) {
+
+    const message =
+      document.createElement("div");
+
+    message.className =
+      "message user";
+
+    const avatar =
+      document.createElement("div");
+
+    avatar.className =
+      "message-avatar";
+
+    avatar.textContent = "U";
+
+    const content =
+      document.createElement("div");
+
+    content.className =
+      "message-content";
+
+    content.textContent = text;
+
+    message.appendChild(avatar);
+
+    message.appendChild(content);
+
+    messages.appendChild(message);
+
+    if (scroll) {
+      scrollChat();
+    }
+  }
+
+
+  /* ================= RENDER AI ================= */
+
+  function renderAIMessage(
+    text,
+    scroll = true
+  ) {
+
+    const message =
+      document.createElement("div");
+
+    message.className =
+      "message ai";
+
+    const avatar =
+      document.createElement("div");
+
+    avatar.className =
+      "message-avatar";
+
+    avatar.textContent = "N";
+
+    const container =
+      document.createElement("div");
+
+    const content =
+      document.createElement("div");
+
+    content.className =
+      "message-content";
+
+    content.textContent = text;
+
+    const tools =
+      document.createElement("div");
+
+    tools.className =
+      "message-tools";
+
+    const speak =
+      document.createElement("button");
+
+    speak.textContent =
+      "🔊 Prečítať";
+
+    speak.onclick = () => {
+      speakText(text);
+    };
+
+    tools.appendChild(speak);
+
+    container.appendChild(content);
+
+    container.appendChild(tools);
+
+    message.appendChild(avatar);
+
+    message.appendChild(container);
+
+    messages.appendChild(message);
+
+    if (scroll) {
+      scrollChat();
+    }
+  }
+
+
+  /* ================= HISTORY ================= */
+
+  function updateHistory() {
+
+    history.innerHTML = "";
+
+    chats
+      .slice()
+      .reverse()
+      .forEach(chat => {
+
+        const item =
+          document.createElement("div");
+
+        item.className =
+          "history-item" +
+          (
+            currentChat &&
+            currentChat.id === chat.id
+              ? " active"
+              : ""
+          );
+
+        item.textContent =
+          chat.title;
+
+        item.onclick = () => {
+          loadChat(chat.id);
+        };
+
+        history.appendChild(item);
+      });
+  }
+
+
+  /* ================= SCROLL ================= */
+
+  function scrollChat() {
+
+    const chat =
+      document.getElementById("chat");
+
+    chat.scrollTo({
+      top: chat.scrollHeight,
+      behavior: "smooth"
+    });
+  }
+
+
+   /* ================= FILES ================= */
 
   function handleFiles(event) {
 
-    const files = Array.from(event.target.files);
+    const files =
+      Array.from(event.target.files);
 
     selectedFiles = [
       ...selectedFiles,
@@ -905,34 +1113,43 @@
     event.target.value = "";
   }
 
+
   function renderAttachments() {
 
     attachmentPreview.innerHTML = "";
 
-    if (selectedFiles.length === 0) {
+    if (
+      selectedFiles.length === 0
+    ) {
 
-      attachmentPreview.style.display = "none";
+      attachmentPreview.style.display =
+        "none";
 
       return;
     }
 
-    attachmentPreview.style.display = "flex";
+    attachmentPreview.style.display =
+      "flex";
 
-    selectedFiles.forEach((file, index) => {
+    selectedFiles.forEach(
+      (file, index) => {
 
-      const item =
-        document.createElement("div");
+        const item =
+          document.createElement("div");
 
-      item.className = "attachment";
+        item.className =
+          "attachment";
 
-      item.innerHTML =
-        "📎 " +
-        escapeHTML(file.name) +
-        ` <button onclick="removeFile(${index})">×</button>`;
+        item.innerHTML =
+          "📎 " +
+          escapeHTML(file.name) +
+          ` <button onclick="removeFile(${index})">×</button>`;
 
-      attachmentPreview.appendChild(item);
-    });
+        attachmentPreview.appendChild(item);
+      }
+    );
   }
+
 
   function removeFile(index) {
 
@@ -940,6 +1157,7 @@
 
     renderAttachments();
   }
+
 
   function escapeHTML(text) {
 
@@ -951,14 +1169,19 @@
       .replace(/'/g, "&#039;");
   }
 
+
   /* ================= MICROPHONE ================= */
 
   function prepareMicrophone() {
 
-    showToast("🎤 Mikrofón sa pripravuje...");
+    showToast(
+      "🎤 Mikrofón sa pripravuje..."
+    );
 
     const button =
-      document.getElementById("micButton");
+      document.getElementById(
+        "micButton"
+      );
 
     button.classList.add("active");
 
@@ -973,11 +1196,14 @@
     }, 1800);
   }
 
-  /* ================= TEXT TO SPEECH ================= */
+
+  /* ================= SPEECH ================= */
 
   function speakText(text) {
 
-    if (!("speechSynthesis" in window)) {
+    if (
+      !("speechSynthesis" in window)
+    ) {
 
       showToast(
         "Tento prehliadač nepodporuje hlasové čítanie."
@@ -992,18 +1218,25 @@
       new SpeechSynthesisUtterance(text);
 
     speech.lang = "sk-SK";
+
     speech.rate = 1;
+
     speech.pitch = 1;
 
-    window.speechSynthesis.speak(speech);
+    window.speechSynthesis.speak(
+      speech
+    );
   }
+
 
   /* ================= CAMERA ================= */
 
   async function openCamera() {
 
-    if (!navigator.mediaDevices ||
-        !navigator.mediaDevices.getUserMedia) {
+    if (
+      !navigator.mediaDevices ||
+      !navigator.mediaDevices.getUserMedia
+    ) {
 
       showToast(
         "Kamera nie je v tomto prehliadači dostupná."
@@ -1020,10 +1253,13 @@
           audio: false
         });
 
-      mediaVideo.srcObject = currentStream;
+      mediaVideo.srcObject =
+        currentStream;
 
-      document.getElementById("mediaTitle")
-        .textContent = "📷 Nexa AI kamera";
+      document.getElementById(
+        "mediaTitle"
+      ).textContent =
+        "📷 Nexa AI kamera";
 
       mediaModal.classList.add("show");
 
@@ -1035,12 +1271,15 @@
     }
   }
 
-   /* ================= SCREEN SHARE ================= */
+
+  /* ================= SCREEN ================= */
 
   async function shareScreen() {
 
-    if (!navigator.mediaDevices ||
-        !navigator.mediaDevices.getDisplayMedia) {
+    if (
+      !navigator.mediaDevices ||
+      !navigator.mediaDevices.getDisplayMedia
+    ) {
 
       showToast(
         "Zdieľanie obrazovky nie je podporované."
@@ -1057,18 +1296,24 @@
           audio: true
         });
 
-      mediaVideo.srcObject = currentStream;
+      mediaVideo.srcObject =
+        currentStream;
 
-      document.getElementById("mediaTitle")
-        .textContent = "🖥️ Zdieľanie obrazovky";
+      document.getElementById(
+        "mediaTitle"
+      ).textContent =
+        "🖥️ Zdieľanie obrazovky";
 
       mediaModal.classList.add("show");
 
       currentStream
         .getVideoTracks()[0]
-        .addEventListener("ended", () => {
-          closeMedia();
-        });
+        .addEventListener(
+          "ended",
+          () => {
+            closeMedia();
+          }
+        );
 
     } catch (error) {
 
@@ -1078,21 +1323,27 @@
     }
   }
 
+
   function closeMedia() {
 
-    mediaModal.classList.remove("show");
+    mediaModal.classList.remove(
+      "show"
+    );
 
     if (currentStream) {
 
       currentStream
         .getTracks()
-        .forEach(track => track.stop());
+        .forEach(track => {
+          track.stop();
+        });
 
       currentStream = null;
     }
 
     mediaVideo.srcObject = null;
   }
+
 
   /* ================= SIDEBAR ================= */
 
@@ -1103,6 +1354,7 @@
       .classList.toggle("open");
   }
 
+
   /* ================= TOAST ================= */
 
   let toastTimer;
@@ -1110,7 +1362,9 @@
   function showToast(text) {
 
     const toast =
-      document.getElementById("toast");
+      document.getElementById(
+        "toast"
+      );
 
     toast.textContent = text;
 
@@ -1118,22 +1372,63 @@
 
     clearTimeout(toastTimer);
 
-    toastTimer = setTimeout(() => {
+    toastTimer =
+      setTimeout(() => {
 
-      toast.classList.remove("show");
+        toast.classList.remove(
+          "show"
+        );
 
-    }, 2500);
+      }, 2500);
   }
+
 
   /* ================= TEXTAREA ================= */
 
-  input.addEventListener("input", () => {
+  input.addEventListener(
+    "input",
+    () => {
 
-    input.style.height = "auto";
+      input.style.height = "auto";
 
-    input.style.height =
-      Math.min(input.scrollHeight, 150) + "px";
-  });
+      input.style.height =
+        Math.min(
+          input.scrollHeight,
+          150
+        ) + "px";
+    }
+  );
+
+
+  /* ================= ENTER ================= */
+
+  input.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Enter" &&
+        !event.shiftKey
+      ) {
+
+        event.preventDefault();
+
+        sendMessage();
+      }
+    }
+  );
+
+
+  /* ================= START ================= */
+
+  /*
+    Na začiatku nie je vytvorených
+    5 prázdnych chatov.
+
+    Prvý chat vznikne až keď používateľ
+    začne skutočne písať alebo klikne
+    na "Nový chat".
+  */
 
 </script>
 
