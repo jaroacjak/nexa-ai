@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Nexa AI — Prihlásenie</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #09090d;
+      --card: #15151b;
+      --card2: #1d1d24;
+      --border: #2b2b34;
+      --text: #f5f5f5;
+      --muted: #9999a5;
+      --accent: #8b5cf6;
+      --accent-hover: #7c3aed;
+      --danger: #ef4444;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(
+          circle at 50% 20%,
+          rgba(124, 58, 237, 0.15),
+          transparent 35%
+        ),
+        var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 440px;
+    }
+
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 15px;
+      background: linear-gradient(
+        135deg,
+        #7c3aed,
+        #a855f7
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 900;
+      box-shadow:
+        0 12px 40px rgba(124, 58, 237, .25);
+    }
+
+    .logo-text {
+      font-size: 25px;
+      font-weight: 700;
+    }
+
+    .card {
+      background: rgba(21, 21, 27, .94);
+      border: 1px solid var(--border);
+      border-radius: 23px;
+      padding: 28px;
+      box-shadow:
+        0 25px 80px rgba(0, 0, 0, .45);
+      backdrop-filter: blur(20px);
+    }
+
+    .heading {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .heading h1 {
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    .heading p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #101015;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 22px;
+    }
+
+    .tab {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      padding: 11px;
+      border-radius: 9px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: .2s;
+    }
+
+    .tab.active {
+      background: var(--card2);
+      color: white;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: #d0d0d6;
+      margin-bottom: 7px;
+    }
+
+    input {
+      width: 100%;
+      height: 47px;
+      background: #101015;
+      color: white;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 0 13px;
+      outline: none;
+      font-size: 14px;
+      transition: .2s;
+    }
+
+    input:focus {
+      border-color: var(--accent);
+      box-shadow:
+        0 0 0 3px rgba(139, 92, 246, .12);
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .password-wrapper input {
+      padding-right: 48px;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 7px;
+      top: 7px;
+      width: 33px;
+      height: 33px;
+      border: none;
+      background: transparent;
+      color: #888894;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .password-toggle:hover {
+      background: #25252c;
+      color: white;
+    }
+
+    .submit {
+      width: 100%;
+      height: 48px;
+      border: none;
+      border-radius: 12px;
+      background: var(--accent);
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .2s;
+      margin-top: 4px;
+    }
+
+    .submit:hover {
+      background: var(--accent-hover);
+    }
+
+    .submit:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .message {
+      display: none;
+      margin-top: 15px;
+      border-radius: 10px;
+      padding: 11px 12px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    .message.error {
+      color: #fecaca;
+      background: rgba(127, 29, 29, .25);
+      border: 1px solid rgba(239, 68, 68, .3);
+    }
+
+    .message.success {
+      color: #bbf7d0;
+      background: rgba(20, 83, 45, .25);
+      border: 1px solid rgba(34, 197, 94, .3);
+    }
+
+    .back {
+      display: block;
+      text-align: center;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      margin-top: 20px;
+    }
+
+    .back:hover {
+      color: white;
+    }
+
+    .footer {
+      text-align: center;
+      color: #5f5f69;
+      font-size: 11px;
+      margin-top: 18px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- LOGO -->
+    <div class="logo">
+      <div class="logo-icon">N</div>
+      <div class="logo-text">Nexa AI</div>
+    </div>
+
+    <!-- CARD -->
+    <div class="card">
+
+      <div class="heading">
+        <h1 id="title">Vitaj v Nexa AI</h1>
+        <p id="subtitle">
+          Prihlás sa a pokračuj vo svojich chatoch.
+        </p>
+      </div>
+
+      <!-- TABS -->
+      <div class="tabs">
+
+        <button
+          class="tab active"
+          id="loginTab"
+          onclick="switchMode('login')"
+        >
+          Prihlásenie
+        </button>
+
+        <button
+          class="tab"
+          id="registerTab"
+          onclick="switchMode('register')"
+        >
+          Registrácia
+        </button>
+
+      </div>
+
+      <!-- FORM -->
+      <form id="authForm">
+
+        <!-- NAME -->
+        <div
+          class="form-group"
+          id="nameGroup"
+          style="display:none;"
+        >
+          <label for="name">Meno</label>
+
+          <input
+            type="text"
+            id="name"
+            placeholder="Tvoje meno"
+            autocomplete="name"
+          >
+        </div>
+
+        <!-- EMAIL -->
+        <div class="form-group">
+
+          <label for="email">E-mail</label>
+
+          <input
+            type="email"
+            id="email"
+            placeholder="tvoj@email.sk"
+            autocomplete="email"
+            required
+          >
+
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="form-group">
+
+          <label for="password">Heslo</label>
+
+          <div class="password-wrapper">
+
+            <input
+              type="password"
+              id="password"
+              placeholder="Tvoje heslo"
+              autocomplete="current-password"
+              minlength="6"
+              required
+            >
+
+            <button
+              type="button"
+              class="password-toggle"
+              onclick="togglePassword()"
+              id="passwordToggle"
+            >
+              👁
+            </button>
+
+          </div>
+
+        </div>
+
+        <!-- SUBMIT -->
+        <button
+          type="submit"
+          class="submit"
+          id="submitButton"
+        >
+          Prihlásiť sa
+        </button>
+
+      </form>
+
+      <!-- MESSAGE -->
+      <div
+        class="message"
+        id="message"
+      ></div>
+
+      <!-- BACK -->
+      <a
+        class="back"
+        href="index.html"
+      >
+        ← Späť na Nexa AI
+      </a>
+
+    </div>
+
+    <div class="footer">
+      Nexa AI · Tvoj AI priestor
+    </div>
+
+  </div>
+
+
+  <!-- FIREBASE -->
+  <script type="module">
+
+    import {
+      initializeApp
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      updateProfile,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    import {
+      getDatabase,
+      ref,
+      set
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+    /* =====================================================
+       FIREBASE CONFIG
+    ===================================================== */
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyCimyyuJq7YVIamV-EQ8qbjDvhypc1ZVHw",
+
+      authDomain:
+        "nexai-650a7.firebaseapp.com",
+
+      databaseURL:
+        "https://nexai-650a7-default-rtdb.firebaseio.com",
+
+      projectId:
+        "nexai-650a7",
+
+      storageBucket:
+        "nexai-650a7.firebasestorage.app",
+
+      messagingSenderId:
+        "713886761376",
+
+      appId:
+        "1:713886761376:web:bb39afe7185406704d64c5",
+
+      measurementId:
+        "G-2MGJ1LPF2M"
+
+    };
+
+
+    /* =====================================================
+       INITIALIZE FIREBASE
+    ===================================================== */
+
+    const app =
+      initializeApp(firebaseConfig);
+
+    const auth =
+      getAuth(app);
+
+    const db =
+      getDatabase(app);
+
+
+    /* =====================================================
+       MODE
+    ===================================================== */
+
+    let mode = "login";
+
+
+    /* =====================================================
+       SWITCH LOGIN / REGISTER
+    ===================================================== */
+
+    window.switchMode = function(newMode) {
+
+      mode = newMode;
+
+      const loginTab =
+        document.getElementById("loginTab");
+
+      const registerTab =
+        document.getElementById("registerTab");
+
+      const nameGroup =
+        document.getElementById("nameGroup");
+
+      const title =
+        document.getElementById("title");
+
+      const subtitle =
+        document.getElementById("subtitle");
+
+      const submit =
+        document.getElementById("submitButton");
+
+      const password =
+        document.getElementById("password");
+
+
+      hideMessage();
+
+
+      if (mode === "register") {
+
+        loginTab.classList.remove("active");
+        registerTab.classList.add("active");
+
+        nameGroup.style.display = "block";
+
+        title.textContent =
+          "Vytvor si účet";
+
+        subtitle.textContent =
+          "Registruj sa a začni používať Nexa AI.";
+
+        submit.textContent =
+          "Vytvoriť účet";
+
+        password.autocomplete =
+          "new-password";
+
+      } else {
+
+        loginTab.classList.add("active");
+        registerTab.classList.remove("active");
+
+        nameGroup.style.display = "none";
+
+        title.textContent =
+          "Vitaj v Nexa AI";
+
+        subtitle.textContent =
+          "Prihlás sa a pokračuj vo svojich chatoch.";
+
+        submit.textContent =
+          "Prihlásiť sa";
+
+        password.autocomplete =
+          "current-password";
+
+      }
+
+    };
+
+
+    /* =====================================================
+       PASSWORD VISIBILITY
+    ===================================================== */
+
+    window.togglePassword = function() {
+
+      const password =
+        document.getElementById("password");
+
+      const button =
+        document.getElementById("passwordToggle");
+
+
+      if (password.type === "password") {
+
+        password.type = "text";
+        button.textContent = "🙈";
+
+      } else {
+
+        password.type = "password";
+        button.textContent = "👁";
+
+      }
+
+    };
+
+
+    /* =====================================================
+       FORM
+    ===================================================== */
+
+    document
+      .getElementById("authForm")
+      .addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        hideMessage();
+
+        const name =
+          document
+            .getElementById("name")
+            .value
+            .trim();
+
+        const email =
+          document
+            .getElementById("email")
+            .value
+            .trim();
+
+        const password =
+          document
+            .getElementById("password")
+            .value;
+
+        const submit =
+          document
+            .getElementById("submitButton");
+
+
+        if (!email || !password) {
+
+          showError(
+            "Vyplň e-mail a heslo."
+          );
+
+          return;
+
+        }
+
+
+        if (mode === "register" && !name) {
+
+          showError(
+            "Zadaj svoje meno."
+          );
+
+          return;
+
+        }
+
+
+        if (password.length < 6) {
+
+          showError(
+            "Heslo musí mať aspoň 6 znakov."
+          );
+
+          return;
+
+        }
+
+
+        submit.disabled = true;
+
+        submit.textContent =
+          mode === "register"
+            ? "Vytváram účet..."
+            : "Prihlasujem...";
+
+
+        try {
+
+          if (mode === "register") {
+
+            await registerUser(
+              name,
+              email,
+              password
+            );
+
+          } else {
+
+            await loginUser(
+              email,
+              password
+            );
+
+          }
+
+        } catch (error) {
+
+          console.error(error);
+
+          showError(
+            firebaseError(error.code)
+          );
+
+          submit.disabled = false;
+
+          submit.textContent =
+            mode === "register"
+              ? "Vytvoriť účet"
+              : "Prihlásiť sa";
+
+        }
+
+      });
+
+
+    /* =====================================================
+       REGISTER
+    ===================================================== */
+
+    async function registerUser(
+      name,
+      email,
+      password
+    ) {
+
+      const credential =
+        await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+      const user =
+        credential.user;
+
+
+      /* Uloží meno do Firebase Authentication */
+
+      await updateProfile(
+        user,
+        {
+          displayName: name
+        }
+      );
+
+
+      /* Uloží profil do Realtime Database */
+
+      await set(
+        ref(
+          db,
+          `users/${user.uid}/profile`
+        ),
+        {
+          uid: user.uid,
+          name: name,
+          email: email,
+          createdAt: Date.now()
+        }
+      );
+
+
+      showSuccess(
+        "Účet bol vytvorený. Presmerovanie..."
+      );
+
+
+      setTimeout(() => {
+
+        window.location.href =
+          "index.html";
+
+      }, 700);
+
+    }
+
+
+    /* =====================================================
+       LOGIN
+    ===================================================== */
+
+    async function loginUser(
+      email,
+      password
+    ) {
+
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+
+      showSuccess(
+        "Prihlásenie úspešné. Presmerovanie..."
+      );
+
+
+      setTimeout(() => {
+
+        window.location.href =
+          "index.html";
+
+      }, 500);
+
+    }
+
+
+    /* =====================================================
+       AUTH STATE
+    ===================================================== */
+
+    onAuthStateChanged(
+      auth,
+      (user) => {
+
+        /*
+          Ak je používateľ už prihlásený,
+          môže rovno pokračovať do Nexa AI.
+        */
+
+        if (user) {
+
+          /*
+            Nenechávame okamžite redirectovať,
+            aby používateľ mohol prípadne
+            prepnúť účet.
+
+            Pri otvorení register.html
+            teda zostane stránka otvorená.
+          */
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       FIREBASE ERROR MESSAGES
+    ===================================================== */
+
+    function firebaseError(code) {
+
+      switch (code) {
+
+        case "auth/email-already-in-use":
+          return "Tento e-mail už má vytvorený účet.";
+
+        case "auth/invalid-email":
+          return "E-mailová adresa nie je platná.";
+
+        case "auth/weak-password":
+          return "Heslo je príliš slabé.";
+
+        case "auth/user-not-found":
+          return "Používateľ s týmto e-mailom neexistuje.";
+
+        case "auth/wrong-password":
+          return "Nesprávne heslo.";
+
+        case "auth/invalid-credential":
+          return "Nesprávny e-mail alebo heslo.";
+
+        case "auth/too-many-requests":
+          return "Príliš veľa pokusov. Skús to neskôr.";
+
+        case "auth/network-request-failed":
+          return "Problém s internetovým pripojením.";
+
+        case "auth/user-disabled":
+          return "Tento účet bol deaktivovaný.";
+
+        case "auth/operation-not-allowed":
+          return "E-mailové prihlasovanie nie je vo Firebase zapnuté.";
+
+        default:
+          return "Nastala chyba. Skús to znova.";
+
+      }
+
+    }
+
+
+    /* =====================================================
+       MESSAGES
+    ===================================================== */
+
+    function showError(text) {
+
+      const message =
+        document.getElementById("message");
+
+      message.className =
+        "message error show";
+
+      message.textContent =
+        text;
+
+    }
+
+
+    function showSuccess(text) {
+
+      const message =
+        document.getElementById("message");
+
+      message.className =
+        "message success show";
+
+      message.textContent =
+        text;
+
+    }
+
+
+    function hideMessage() {
+
+      const message =
+        document.getElementById("message");
+
+      message.className =
+        "message";
+
+      message.textContent =
+        "";
+
+    }
+
+  </script>
+
+</body>
+</html>
