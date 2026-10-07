@@ -13,46 +13,56 @@
     }
 
     :root {
-      --bg: #0b0d12;
-      --sidebar: #10131a;
-      --surface: #171a22;
-      --surface-hover: #20242e;
-      --border: #2a2f3a;
-      --text: #f5f7fa;
-      --muted: #969eac;
-      --accent: #8b7cff;
-      --accent2: #5e9cff;
+      --bg: #0b0b0f;
+      --sidebar: #111116;
+      --panel: #17171d;
+      --panel2: #1e1e25;
+      --border: #2a2a32;
+      --text: #f4f4f5;
+      --muted: #9b9ba5;
+      --accent: #8b5cf6;
+      --accent2: #a78bfa;
+      --danger: #ef4444;
     }
 
     body {
-      font-family: Inter, Arial, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       background: var(--bg);
       color: var(--text);
       height: 100vh;
       overflow: hidden;
     }
 
-    button {
+    button,
+    input,
+    textarea {
       font-family: inherit;
     }
 
+    button {
+      cursor: pointer;
+    }
+
+    /* APP */
+
     .app {
       display: flex;
+      width: 100%;
       height: 100vh;
     }
 
-    /* ================= SIDEBAR ================= */
+    /* SIDEBAR */
 
     .sidebar {
       width: 270px;
-      flex-shrink: 0;
+      height: 100%;
       background: var(--sidebar);
       border-right: 1px solid var(--border);
-      padding: 18px;
       display: flex;
       flex-direction: column;
-      transition: .25s ease;
-      z-index: 100;
+      padding: 16px;
+      transition: 0.25s;
+      flex-shrink: 0;
     }
 
     .logo {
@@ -60,361 +70,458 @@
       align-items: center;
       gap: 10px;
       font-size: 21px;
-      font-weight: 700;
-      margin-bottom: 28px;
+      font-weight: bold;
+      margin-bottom: 24px;
     }
 
     .logo-icon {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      font-weight: 800;
+      background: linear-gradient(135deg, #7c3aed, #a855f7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      color: white;
     }
 
     .new-chat {
-      border: 1px solid var(--border);
-      background: var(--surface);
+      border: none;
+      background: var(--panel2);
       color: var(--text);
       border-radius: 13px;
-      padding: 12px 14px;
-      cursor: pointer;
+      padding: 13px 15px;
       text-align: left;
-      font-size: 14px;
-      transition: .2s;
+      font-size: 15px;
+      margin-bottom: 20px;
+      transition: 0.2s;
     }
 
     .new-chat:hover {
-      background: var(--surface-hover);
+      background: #292931;
     }
 
     .history-title {
       color: var(--muted);
-      font-size: 11px;
-      margin: 27px 8px 10px;
+      font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: .1em;
+      letter-spacing: 1px;
+      margin-bottom: 9px;
     }
 
     .history {
-      overflow-y: auto;
       flex: 1;
+      overflow-y: auto;
+      padding-right: 3px;
     }
 
     .history-item {
-      padding: 10px 12px;
-      border-radius: 9px;
-      color: #cbd0da;
+      padding: 11px 12px;
+      border-radius: 10px;
+      color: #d8d8de;
       font-size: 14px;
+      margin-bottom: 4px;
       cursor: pointer;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .history-item:hover,
+    .history-item:hover {
+      background: #1c1c22;
+    }
+
     .history-item.active {
-      background: var(--surface-hover);
+      background: #25232d;
+      color: white;
+    }
+
+    .empty-history {
+      color: #666671;
+      font-size: 13px;
+      padding: 8px;
     }
 
     .profile {
       border-top: 1px solid var(--border);
-      padding-top: 15px;
+      padding-top: 14px;
+      margin-top: 12px;
       display: flex;
       align-items: center;
       gap: 10px;
+      cursor: pointer;
     }
 
     .avatar {
-      width: 35px;
-      height: 35px;
+      width: 39px;
+      height: 39px;
       border-radius: 50%;
-      background: #292e38;
-      display: grid;
-      place-items: center;
+      background: #292932;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #ddd;
+      flex-shrink: 0;
+    }
+
+    .profile-info {
+      overflow: hidden;
     }
 
     .profile-name {
       font-size: 14px;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .profile-status {
+    .profile-email {
       color: var(--muted);
       font-size: 12px;
-      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    /* ================= MAIN ================= */
+    /* MAIN */
 
     .main {
       flex: 1;
       min-width: 0;
+      height: 100%;
       display: flex;
       flex-direction: column;
     }
 
     .topbar {
-      height: 64px;
+      height: 62px;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 24px;
+      padding: 0 22px;
+      flex-shrink: 0;
     }
 
-    .model {
+    .top-title {
       font-size: 15px;
-      font-weight: 600;
+      color: #ddd;
     }
 
-    .model span {
-      color: var(--muted);
-      font-weight: 400;
-      margin-left: 6px;
+    .top-actions {
+      display: flex;
+      gap: 8px;
     }
 
-    .menu-btn {
-      display: none;
-      background: none;
-      border: 0;
+    .icon-btn {
+      width: 39px;
+      height: 39px;
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      background: var(--panel);
       color: white;
-      font-size: 23px;
-      cursor: pointer;
+      font-size: 17px;
+      transition: 0.2s;
     }
 
-    /* ================= CHAT ================= */
+    .icon-btn:hover {
+      background: #24242b;
+    }
 
-    .chat {
+    /* CHAT */
+
+    .chat-area {
       flex: 1;
       overflow-y: auto;
-      padding: 40px 20px 180px;
+      padding: 30px 20px;
+    }
+
+    .chat-container {
+      width: min(900px, 100%);
+      margin: auto;
     }
 
     .welcome {
-      max-width: 820px;
-      margin: 100px auto 0;
+      min-height: calc(100vh - 210px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .welcome-logo {
+      width: 74px;
+      height: 74px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #7c3aed, #a855f7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 31px;
+      font-weight: 900;
+      margin-bottom: 22px;
+      box-shadow: 0 15px 45px rgba(124, 58, 237, 0.22);
     }
 
     .welcome h1 {
-      font-size: 42px;
-      letter-spacing: -1px;
-      margin-bottom: 12px;
-    }
-
-    .gradient {
-      background: linear-gradient(90deg, #a091ff, #67a7ff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      font-size: clamp(30px, 5vw, 50px);
+      margin-bottom: 10px;
     }
 
     .welcome p {
       color: var(--muted);
-      font-size: 17px;
+      max-width: 600px;
+      line-height: 1.6;
     }
 
     .messages {
-      max-width: 820px;
-      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
     }
 
     .message {
       display: flex;
-      gap: 14px;
-      margin: 26px 0;
-      line-height: 1.65;
+      gap: 12px;
+      animation: appear 0.2s ease;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message.user {
+      justify-content: flex-end;
     }
 
     .message-avatar {
       width: 35px;
       height: 35px;
-      min-width: 35px;
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
+      border-radius: 50%;
+      background: #24242b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
       font-size: 13px;
-      font-weight: 700;
-    }
-
-    .user .message-avatar {
-      background: #303641;
-    }
-
-    .ai .message-avatar {
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      font-weight: bold;
     }
 
     .message-content {
-      padding-top: 4px;
-      white-space: pre-wrap;
-      min-width: 0;
+      max-width: min(720px, 85%);
     }
 
-    .message-tools {
-      display: flex;
-      gap: 5px;
-      margin-top: 8px;
+    .message.user .message-content {
+      background: #272331;
+      border: 1px solid #342d45;
+      border-radius: 17px;
+      padding: 12px 15px;
     }
 
-    .message-tools button {
-      border: 1px solid var(--border);
-      background: transparent;
+    .message.ai .message-content {
+      padding: 5px 0;
+      line-height: 1.7;
+    }
+
+    .message-name {
       color: var(--muted);
-      border-radius: 7px;
-      padding: 5px 8px;
-      cursor: pointer;
       font-size: 12px;
+      margin-bottom: 5px;
     }
 
-    .message-tools button:hover {
-      background: var(--surface-hover);
+    .message-text {
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .message-actions {
+      display: flex;
+      gap: 7px;
+      margin-top: 9px;
+    }
+
+    .message-action {
+      border: none;
+      background: transparent;
+      color: #858590;
+      font-size: 13px;
+      padding: 4px 7px;
+      border-radius: 7px;
+    }
+
+    .message-action:hover {
+      background: #1d1d23;
       color: white;
     }
 
-    /* ================= ATTACHMENTS ================= */
+    /* ATTACHMENTS */
 
     .attachment-preview {
-      max-width: 820px;
-      margin: 0 auto 8px;
-      display: none;
-      gap: 8px;
+      display: flex;
       flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 9px;
     }
 
     .attachment {
-      background: var(--surface);
+      background: #24242c;
       border: 1px solid var(--border);
-      border-radius: 10px;
       padding: 8px 10px;
+      border-radius: 10px;
       font-size: 12px;
+      color: #ddd;
       display: flex;
+      gap: 6px;
       align-items: center;
-      gap: 7px;
     }
 
     .attachment button {
-      border: 0;
-      background: none;
-      color: var(--muted);
+      border: none;
+      background: transparent;
+      color: #aaa;
       cursor: pointer;
     }
 
-    /* ================= INPUT ================= */
+    /* INPUT */
 
-    .input-area {
-      position: fixed;
-      bottom: 0;
-      left: 270px;
-      right: 0;
-      padding: 18px 20px 20px;
-      background: linear-gradient(transparent, var(--bg) 35%);
+    .input-section {
+      padding: 12px 20px 18px;
+      flex-shrink: 0;
     }
 
-    .input-wrapper {
-      max-width: 820px;
+    .input-container {
+      width: min(900px, 100%);
       margin: auto;
-      background: var(--surface);
+    }
+
+    .input-box {
+      background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 18px;
+      border-radius: 19px;
       padding: 9px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .input-row {
       display: flex;
       align-items: flex-end;
-      gap: 6px;
-      box-shadow: 0 10px 35px rgba(0,0,0,.25);
-    }
-
-    .tool-btn {
-      width: 40px;
-      height: 40px;
-      border: 0;
-      background: transparent;
-      color: #aeb5c2;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 19px;
-      flex-shrink: 0;
-      transition: .2s;
-    }
-
-    .tool-btn:hover {
-      background: var(--surface-hover);
-      color: white;
-    }
-
-    .tool-btn.active {
-      color: #ff6b6b;
-      background: rgba(239,83,80,.12);
+      gap: 8px;
     }
 
     textarea {
       flex: 1;
       resize: none;
-      border: 0;
-      outline: 0;
+      border: none;
+      outline: none;
       background: transparent;
       color: white;
-      font-family: inherit;
-      font-size: 15px;
-      padding: 9px 7px;
-      min-height: 40px;
+      min-height: 44px;
       max-height: 150px;
+      padding: 11px 7px;
+      font-size: 15px;
+      line-height: 1.5;
     }
 
     textarea::placeholder {
-      color: #737b89;
+      color: #707078;
+    }
+
+    .input-actions {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .input-btn {
+      width: 39px;
+      height: 39px;
+      border-radius: 11px;
+      border: none;
+      background: transparent;
+      color: #aaa;
+      font-size: 17px;
+    }
+
+    .input-btn:hover {
+      background: #24242a;
+      color: white;
     }
 
     .send-btn {
-      width: 42px;
-      height: 42px;
-      border: 0;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      background: var(--accent);
       color: white;
-      cursor: pointer;
-      font-size: 19px;
-      flex-shrink: 0;
-      transition: .2s;
     }
 
     .send-btn:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.1);
+      background: #7c3aed;
     }
 
-    .hint {
+    .input-hint {
       text-align: center;
-      color: #606876;
+      color: #5f5f68;
       font-size: 11px;
       margin-top: 8px;
     }
 
-    /* ================= MODAL ================= */
+    /* TOAST */
 
-    .modal {
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      transform: translate(-50%, 20px);
+      background: #25252c;
+      border: 1px solid #393941;
+      color: white;
+      padding: 12px 17px;
+      border-radius: 12px;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.25s;
+      z-index: 1000;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    /* MODAL */
+
+    .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,.65);
-      backdrop-filter: blur(7px);
+      background: rgba(0,0,0,.72);
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 500;
+      z-index: 900;
       padding: 20px;
     }
 
-    .modal.show {
+    .modal-overlay.show {
       display: flex;
     }
 
-    .modal-box {
-      width: min(600px, 100%);
-      background: #151820;
+    .modal {
+      width: min(650px, 100%);
+      background: #15151a;
       border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 18px;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 25px 80px rgba(0,0,0,.55);
     }
 
     .modal-header {
@@ -424,98 +531,129 @@
       margin-bottom: 15px;
     }
 
-    .modal-header h2 {
-      font-size: 17px;
+    .modal-title {
+      font-weight: bold;
+      font-size: 18px;
     }
 
     .close-btn {
-      border: 0;
-      background: transparent;
-      color: var(--muted);
-      font-size: 22px;
-      cursor: pointer;
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      border: none;
+      background: #24242b;
+      color: white;
+      font-size: 18px;
     }
 
     video {
       width: 100%;
+      max-height: 430px;
+      background: #050505;
       border-radius: 13px;
-      background: black;
-      display: block;
-      max-height: 60vh;
-      object-fit: contain;
+      object-fit: cover;
     }
 
-    /* ================= TOAST ================= */
+    .modal-footer {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      justify-content: flex-end;
+    }
 
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 95px;
-      transform: translateX(-50%) translateY(15px);
-      background: #222630;
-      border: 1px solid var(--border);
-      padding: 10px 15px;
+    .modal-button {
+      border: none;
       border-radius: 10px;
-      font-size: 13px;
-      opacity: 0;
-      pointer-events: none;
-      transition: .25s;
-      z-index: 1000;
+      padding: 10px 14px;
+      background: #292930;
+      color: white;
     }
 
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
+    .modal-button.primary {
+      background: var(--accent);
     }
 
-    /* ================= MOBILE ================= */
+    /* USER MENU */
 
-    @media (max-width: 700px) {
+    .user-menu {
+      position: fixed;
+      left: 16px;
+      bottom: 75px;
+      width: 238px;
+      background: #18181e;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 7px;
+      display: none;
+      z-index: 800;
+      box-shadow: 0 15px 45px rgba(0,0,0,.4);
+    }
+
+    .user-menu.show {
+      display: block;
+    }
+
+    .user-menu-item {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: #ddd;
+      text-align: left;
+      padding: 11px;
+      border-radius: 9px;
+    }
+
+    .user-menu-item:hover {
+      background: #25252c;
+    }
+
+    .user-menu-item.danger {
+      color: #f87171;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 760px) {
       .sidebar {
-        position: fixed;
-        left: -270px;
-        top: 0;
-        bottom: 0;
+        width: 76px;
+        padding: 12px 9px;
       }
 
-      .sidebar.open {
-        left: 0;
+      .logo {
+        justify-content: center;
       }
 
-      .menu-btn {
-        display: block;
+      .logo span,
+      .new-chat span,
+      .history-title,
+      .profile-info,
+      .history-item {
+        display: none;
+      }
+
+      .new-chat {
+        text-align: center;
+        padding: 13px 0;
+      }
+
+      .profile {
+        justify-content: center;
+      }
+
+      .chat-area {
+        padding: 20px 13px;
+      }
+
+      .input-section {
+        padding: 8px 10px 13px;
       }
 
       .topbar {
-        padding: 0 15px;
+        padding: 0 12px;
       }
 
-      .input-area {
-        left: 0;
-        padding: 12px;
-      }
-
-      .welcome {
-        margin-top: 70px;
-      }
-
-      .welcome h1 {
-        font-size: 32px;
-      }
-
-      .chat {
-        padding-left: 15px;
-        padding-right: 15px;
-      }
-
-      .tool-btn {
-        width: 36px;
-        height: 36px;
-      }
-
-      .send-btn {
-        width: 40px;
-        height: 40px;
+      .message-content {
+        max-width: 90%;
       }
     }
   </style>
@@ -526,27 +664,29 @@
 <div class="app">
 
   <!-- SIDEBAR -->
-  <aside class="sidebar" id="sidebar">
+  <aside class="sidebar">
 
     <div class="logo">
       <div class="logo-icon">N</div>
-      Nexa AI
+      <span>Nexa AI</span>
     </div>
 
     <button class="new-chat" onclick="newChat()">
-      ＋ &nbsp; Nový chat
+      ＋ <span>Nový chat</span>
     </button>
 
     <div class="history-title">História</div>
 
-    <div class="history" id="history"></div>
+    <div class="history" id="history">
+      <div class="empty-history">Zatiaľ žiadne chaty</div>
+    </div>
 
-    <div class="profile">
-      <div class="avatar">U</div>
+    <div class="profile" id="profileButton" onclick="toggleUserMenu()">
+      <div class="avatar" id="avatar">?</div>
 
-      <div>
-        <div class="profile-name">Používateľ</div>
-        <div class="profile-status">Nexa AI</div>
+      <div class="profile-info">
+        <div class="profile-name" id="profileName">Používateľ</div>
+        <div class="profile-email" id="profileEmail">Prihlásiť sa</div>
       </div>
     </div>
 
@@ -556,879 +696,1227 @@
   <main class="main">
 
     <header class="topbar">
+      <div class="top-title" id="topTitle">Nexa AI</div>
 
-      <button class="menu-btn" onclick="toggleSidebar()">
-        ☰
-      </button>
-
-      <div class="model">
-        Nexa AI
-        <span>Assistant</span>
+      <div class="top-actions">
+        <button class="icon-btn" onclick="showCamera()" title="Kamera">📷</button>
+        <button class="icon-btn" onclick="shareScreen()" title="Zdieľať obrazovku">🖥️</button>
       </div>
-
-      <div></div>
-
     </header>
 
-    <section class="chat" id="chat">
+    <section class="chat-area" id="chatArea">
 
-      <div class="welcome" id="welcome">
+      <div class="chat-container">
 
-        <h1>
-          Ahoj, som
-          <span class="gradient">Nexa AI</span>.
-        </h1>
+        <div class="welcome" id="welcome">
+          <div class="welcome-logo">N</div>
 
-        <p>
-          Ako ti dnes môžem pomôcť?
-        </p>
+          <h1>Ako ti môžem pomôcť?</h1>
+
+          <p>
+            Som Nexa AI. Môžeš mi napísať otázku, pridať súbor,
+            použiť kameru alebo zdieľať obrazovku.
+          </p>
+        </div>
+
+        <div class="messages" id="messages"></div>
 
       </div>
 
-      <div class="messages" id="messages"></div>
+    </section>
+
+    <!-- INPUT -->
+    <section class="input-section">
+
+      <div class="input-container">
+
+        <div class="input-box">
+
+          <div class="attachment-preview" id="attachmentPreview"></div>
+
+          <div class="input-row">
+
+            <textarea
+              id="messageInput"
+              placeholder="Napíš správu Nexa AI..."
+              rows="1"
+              oninput="autoResize(this)"
+              onkeydown="handleEnter(event)"
+            ></textarea>
+
+            <div class="input-actions">
+
+              <input
+                type="file"
+                id="fileInput"
+                multiple
+                hidden
+                onchange="handleFiles(event)"
+              >
+
+              <button
+                class="input-btn"
+                onclick="document.getElementById('fileInput').click()"
+                title="Priložiť súbor"
+              >📎</button>
+
+              <button
+                class="input-btn"
+                onclick="startMicrophone()"
+                title="Mikrofón"
+              >🎤</button>
+
+              <button
+                class="input-btn send-btn"
+                onclick="sendMessage()"
+                title="Odoslať"
+              >➤</button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="input-hint">
+          Nexa AI môže robiť chyby. Skontroluj dôležité informácie.
+        </div>
+
+      </div>
 
     </section>
 
   </main>
 
-  <!-- INPUT -->
-
-  <div class="input-area">
-
-    <div
-      class="attachment-preview"
-      id="attachmentPreview">
-    </div>
-
-    <div class="input-wrapper">
-
-      <!-- FILE -->
-
-      <button
-        class="tool-btn"
-        title="Pridať prílohu"
-        onclick="document.getElementById('fileInput').click()">
-        📎
-      </button>
-
-      <input
-        id="fileInput"
-        type="file"
-        multiple
-        hidden
-        onchange="handleFiles(event)"
-      >
-
-      <!-- CAMERA -->
-
-      <button
-        class="tool-btn"
-        title="Kamera"
-        onclick="openCamera()">
-        📷
-      </button>
-
-      <!-- SCREEN -->
-
-      <button
-        class="tool-btn"
-        title="Zdieľať obrazovku"
-        onclick="shareScreen()">
-        🖥️
-      </button>
-
-      <!-- MICROPHONE -->
-
-      <button
-        class="tool-btn"
-        id="micButton"
-        title="Mikrofón"
-        onclick="prepareMicrophone()">
-        🎤
-      </button>
-
-      <!-- TEXT -->
-
-      <textarea
-        id="input"
-        rows="1"
-        placeholder="Napíš správu pre Nexa AI..."
-        onkeydown="handleKey(event)">
-      </textarea>
-
-      <!-- SEND -->
-
-      <button
-        class="send-btn"
-        onclick="sendMessage()"
-        title="Odoslať">
-        ↑
-      </button>
-
-    </div>
-
-    <div class="hint">
-      Nexa AI môže robiť chyby. Skontroluj dôležité informácie.
-    </div>
-
-  </div>
-
 </div>
-
-
-<!-- MEDIA MODAL -->
-
-<div class="modal" id="mediaModal">
-
-  <div class="modal-box">
-
-    <div class="modal-header">
-
-      <h2 id="mediaTitle">
-        Nexa AI kamera
-      </h2>
-
-      <button
-        class="close-btn"
-        onclick="closeMedia()">
-        ×
-      </button>
-
-    </div>
-
-    <video
-      id="mediaVideo"
-      autoplay
-      playsinline>
-    </video>
-
-  </div>
-
-</div>
-
 
 <!-- TOAST -->
-
 <div class="toast" id="toast"></div>
 
+<!-- CAMERA MODAL -->
+<div class="modal-overlay" id="cameraModal">
 
-<script>
+  <div class="modal">
 
-  /* ================= STATE ================= */
+    <div class="modal-header">
+      <div class="modal-title">📷 Kamera</div>
+      <button class="close-btn" onclick="closeCamera()">×</button>
+    </div>
 
-  const input =
-    document.getElementById("input");
+    <video id="cameraVideo" autoplay playsinline></video>
 
-  const messages =
-    document.getElementById("messages");
+    <div class="modal-footer">
+      <button class="modal-button" onclick="closeCamera()">Zavrieť</button>
+      <button class="modal-button primary" onclick="capturePhoto()">📸 Odfotiť</button>
+    </div>
 
-  const welcome =
-    document.getElementById("welcome");
+  </div>
 
-  const history =
-    document.getElementById("history");
+</div>
 
-  const attachmentPreview =
-    document.getElementById("attachmentPreview");
+<!-- USER MENU -->
+<div class="user-menu" id="userMenu">
 
-  const mediaModal =
-    document.getElementById("mediaModal");
+  <button class="user-menu-item" onclick="openProfile()">
+    👤 Profil
+  </button>
 
-  const mediaVideo =
-    document.getElementById("mediaVideo");
+  <button class="user-menu-item" onclick="openRegister()">
+    🔐 Prihlásenie / Registrácia
+  </button>
 
+  <button
+    class="user-menu-item danger"
+    id="logoutButton"
+    onclick="logoutUser()"
+  >
+    🚪 Odhlásiť sa
+  </button>
+
+</div>
+
+<script type="module">
+
+  /* =========================================================
+     FIREBASE
+  ========================================================= */
+
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+  import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  import {
+    getDatabase,
+    ref,
+    set,
+    get,
+    remove
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCimyyuJq7YVIamV-EQ8qbjDvhypc1ZVHw",
+    authDomain: "nexai-650a7.firebaseapp.com",
+    databaseURL: "https://nexai-650a7-default-rtdb.firebaseio.com",
+    projectId: "nexai-650a7",
+    storageBucket: "nexai-650a7.firebasestorage.app",
+    messagingSenderId: "713886761376",
+    appId: "1:713886761376:web:bb39afe7185406704d64c5",
+    measurementId: "G-2MGJ1LPF2M"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase(app);
+
+
+  /* =========================================================
+     CHAT STATE
+  ========================================================= */
+
+  let currentUser = null;
+  let currentChat = null;
+  let chats = {};
   let selectedFiles = [];
 
-  let currentStream = null;
-
-  let currentChat = null;
-
-  let chatId = 0;
-
-  let chats = [];
+  let cameraStream = null;
+  let screenStream = null;
 
 
-  /* ================= CHAT ================= */
+  /* =========================================================
+     ELEMENTS
+  ========================================================= */
 
-  function createChat() {
+  const messagesEl = document.getElementById("messages");
+  const welcomeEl = document.getElementById("welcome");
+  const historyEl = document.getElementById("history");
+  const messageInput = document.getElementById("messageInput");
+  const attachmentPreview = document.getElementById("attachmentPreview");
 
-    chatId++;
 
-    currentChat = {
-      id: chatId,
-      title: "Nový chat",
-      messages: []
-    };
+  /* =========================================================
+     AUTH
+  ========================================================= */
 
-    chats.push(currentChat);
+  onAuthStateChanged(auth, async (user) => {
 
-    updateHistory();
+    currentUser = user;
 
-    return currentChat;
+    if (user) {
+
+      const name =
+        user.displayName ||
+        user.email?.split("@")[0] ||
+        "Používateľ";
+
+      document.getElementById("profileName").textContent = name;
+      document.getElementById("profileEmail").textContent =
+        user.email || "";
+
+      document.getElementById("avatar").textContent =
+        name.charAt(0).toUpperCase();
+
+      await loadChats();
+
+    } else {
+
+      document.getElementById("profileName").textContent =
+        "Používateľ";
+
+      document.getElementById("profileEmail").textContent =
+        "Prihlásiť sa";
+
+      document.getElementById("avatar").textContent = "?";
+
+      chats = {};
+      currentChat = null;
+
+      renderHistory();
+      clearMessages();
+    }
+
+  });
+
+
+  /* =========================================================
+     USER MENU
+  ========================================================= */
+
+  window.toggleUserMenu = function() {
+
+    document
+      .getElementById("userMenu")
+      .classList.toggle("show");
+
+  };
+
+
+  window.openRegister = function() {
+
+    window.location.href = "register.html";
+
+  };
+
+
+  window.openProfile = function() {
+
+    if (!currentUser) {
+      window.location.href = "register.html";
+      return;
+    }
+
+    showToast("Profil používateľa: " + (
+      currentUser.displayName ||
+      currentUser.email
+    ));
+
+  };
+
+
+  window.logoutUser = async function() {
+
+    try {
+
+      await saveCurrentChat();
+
+      await signOut(auth);
+
+      document
+        .getElementById("userMenu")
+        .classList.remove("show");
+
+      showToast("Boli ste odhlásený.");
+
+    } catch (error) {
+
+      console.error(error);
+      showToast("Odhlásenie sa nepodarilo.");
+
+    }
+
+  };
+
+
+  /* =========================================================
+     LOAD CHATS FROM FIREBASE
+  ========================================================= */
+
+  async function loadChats() {
+
+    if (!currentUser) return;
+
+    try {
+
+      const chatsRef =
+        ref(db, `users/${currentUser.uid}/chats`);
+
+      const snapshot = await get(chatsRef);
+
+      chats = snapshot.exists()
+        ? snapshot.val()
+        : {};
+
+      renderHistory();
+
+      const chatIds = Object.keys(chats);
+
+      if (chatIds.length > 0) {
+
+        chatIds.sort((a, b) => {
+
+          const timeA = chats[a].updatedAt || 0;
+          const timeB = chats[b].updatedAt || 0;
+
+          return timeB - timeA;
+
+        });
+
+        loadChat(chatIds[0]);
+
+      } else {
+
+        currentChat = null;
+        clearMessages();
+
+      }
+
+    } catch (error) {
+
+      console.error(error);
+      showToast("Nepodarilo sa načítať históriu.");
+
+    }
+
   }
 
 
-  function newChat() {
+  /* =========================================================
+     SAVE CHAT TO FIREBASE
+  ========================================================= */
 
-    /*
-      Aktuálny chat sa NEVYTVÁRA pri každej správe.
-      Nový chat vznikne iba po kliknutí na toto tlačidlo.
-    */
+  async function saveCurrentChat() {
+
+    if (!currentUser || !currentChat) return;
 
     if (
-      currentChat &&
+      !currentChat.messages ||
       currentChat.messages.length === 0
     ) {
       return;
     }
 
-    createChat();
+    currentChat.updatedAt = Date.now();
 
-    messages.innerHTML = "";
+    chats[currentChat.id] = currentChat;
 
-    welcome.style.display = "block";
+    try {
 
-    input.value = "";
+      await set(
+        ref(
+          db,
+          `users/${currentUser.uid}/chats/${currentChat.id}`
+        ),
+        currentChat
+      );
 
-    selectedFiles = [];
+      renderHistory();
 
-    attachmentPreview.innerHTML = "";
+    } catch (error) {
 
-    attachmentPreview.style.display = "none";
+      console.error(error);
+      showToast("Chat sa nepodarilo uložiť.");
 
-    input.focus();
+    }
+
   }
 
 
-  function loadChat(id) {
+  /* =========================================================
+     CREATE NEW CHAT
+  ========================================================= */
 
-    const chat =
-      chats.find(item => item.id === id);
+  function createLocalChat() {
+
+    const id =
+      "chat_" +
+      Date.now() +
+      "_" +
+      Math.random()
+        .toString(36)
+        .substring(2, 8);
+
+    const chat = {
+      id: id,
+      title: "Nový chat",
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+      messages: []
+    };
+
+    chats[id] = chat;
+    currentChat = chat;
+
+    clearMessages();
+    renderHistory();
+
+    return chat;
+
+  }
+
+
+  /* =========================================================
+     NEW CHAT
+  ========================================================= */
+
+  window.newChat = async function() {
+
+    if (currentChat && currentChat.messages.length > 0) {
+
+      await saveCurrentChat();
+
+    }
+
+    currentChat = null;
+
+    clearMessages();
+
+    messageInput.value = "";
+    messageInput.style.height = "auto";
+
+    selectedFiles = [];
+    renderAttachments();
+
+    document.getElementById("topTitle").textContent =
+      "Nový chat";
+
+    renderHistory();
+
+    messageInput.focus();
+
+  };
+
+
+  /* =========================================================
+     LOAD CHAT
+  ========================================================= */
+
+  window.loadChat = function(id) {
+
+    const chat = chats[id];
 
     if (!chat) return;
 
     currentChat = chat;
 
-    messages.innerHTML = "";
+    clearMessages(false);
 
-    if (chat.messages.length === 0) {
+    document.getElementById("topTitle").textContent =
+      chat.title || "Nexa AI";
 
-      welcome.style.display = "block";
-
-    } else {
-
-      welcome.style.display = "none";
+    if (chat.messages && chat.messages.length > 0) {
 
       chat.messages.forEach(message => {
 
-        if (message.type === "ai") {
+        if (message.role === "user") {
+
+          renderUserMessage(
+            message.text,
+            message.attachments || [],
+            false
+          );
+
+        } else {
 
           renderAIMessage(
             message.text,
             false
           );
 
-        } else {
-
-          renderUserMessage(
-            message.text,
-            false
-          );
         }
 
       });
+
     }
 
-    updateHistory();
-  }
+    renderHistory();
+
+    scrollToBottom();
+
+  };
 
 
-  /* ================= SEND ================= */
+  /* =========================================================
+     SEND MESSAGE
+  ========================================================= */
 
-  function sendMessage() {
+  window.sendMessage = async function() {
 
-    const text =
-      input.value.trim();
+    const text = messageInput.value.trim();
 
-    if (
-      !text &&
-      selectedFiles.length === 0
-    ) {
+    if (!text && selectedFiles.length === 0) {
       return;
     }
 
     /*
-      Ak používateľ začne písať bez toho,
-      aby vytvoril chat, vytvoríme iba jeden
-      aktuálny chat.
+      Dôležité:
+      Tu sa NEVYTVÁRA nový chat pri každej správe.
+      Chat sa vytvorí iba vtedy, keď momentálne žiadny nemáme.
     */
 
     if (!currentChat) {
-      createChat();
+
+      currentChat = createLocalChat();
+
     }
 
-    welcome.style.display = "none";
+    const attachments = selectedFiles.map(file => ({
+      name: file.name,
+      type: file.type,
+      size: file.size
+    }));
 
-    let messageText = text;
-
-    if (selectedFiles.length > 0) {
-
-      const names =
-        selectedFiles
-          .map(file => file.name)
-          .join(", ");
-
-      messageText +=
-        (messageText ? "\n\n" : "") +
-        "📎 Prílohy: " +
-        names;
-    }
+    const messageText =
+      text ||
+      "Poslal som prílohu.";
 
     currentChat.messages.push({
-      type: "user",
-      text: messageText
+      role: "user",
+      text: messageText,
+      attachments: attachments,
+      timestamp: Date.now()
     });
 
     if (
+      !currentChat.title ||
       currentChat.title === "Nový chat"
     ) {
 
       currentChat.title =
-        text ||
-        selectedFiles[0]?.name ||
+        text.substring(0, 45) ||
         "Nový chat";
+
     }
+
+    document.getElementById("topTitle").textContent =
+      currentChat.title;
 
     renderUserMessage(
       messageText,
+      attachments,
       true
     );
 
-    updateHistory();
-
-    input.value = "";
-
-    input.style.height = "auto";
+    messageInput.value = "";
+    messageInput.style.height = "auto";
 
     selectedFiles = [];
+    renderAttachments();
 
-    attachmentPreview.innerHTML = "";
-
-    attachmentPreview.style.display = "none";
-
+    await saveCurrentChat();
 
     /*
-      TESTOVACIA AI ODPOVEĎ
+      Dočasná odpoveď Nexa AI.
+      Neskôr sem môžeme napojiť skutočný AI backend/API.
     */
 
-    setTimeout(() => {
+    setTimeout(async () => {
 
-      const response =
-        "Ahoj! Som Nexa AI. Toto je zatiaľ testovacia odpoveď. Neskôr môžeme Nexa AI napojiť na skutočný AI model.";
+      const answer =
+        "Som Nexa AI. Správa bola prijatá. 🤖\n\n" +
+        "Toto je momentálne testovacia odpoveď. " +
+        "AI model môžeme následne napojiť cez backend.";
 
       currentChat.messages.push({
-        type: "ai",
-        text: response
+        role: "ai",
+        text: answer,
+        timestamp: Date.now()
       });
 
-      renderAIMessage(
-        response,
-        true
-      );
+      renderAIMessage(answer, true);
 
-    }, 600);
-  }
+      await saveCurrentChat();
+
+    }, 650);
+
+  };
 
 
-  /* ================= RENDER USER ================= */
+  /* =========================================================
+     USER MESSAGE
+  ========================================================= */
 
   function renderUserMessage(
     text,
+    attachments = [],
     scroll = true
   ) {
 
-    const message =
-      document.createElement("div");
+    welcomeEl.style.display = "none";
 
-    message.className =
-      "message user";
+    const wrapper = document.createElement("div");
+    wrapper.className = "message user";
 
-    const avatar =
-      document.createElement("div");
+    const avatar = document.createElement("div");
+    avatar.className = "message-avatar";
+    avatar.textContent = currentUser
+      ? (
+          currentUser.displayName ||
+          currentUser.email ||
+          "U"
+        ).charAt(0).toUpperCase()
+      : "U";
 
-    avatar.className =
-      "message-avatar";
+    const content = document.createElement("div");
+    content.className = "message-content";
 
-    avatar.textContent = "U";
+    const name = document.createElement("div");
+    name.className = "message-name";
+    name.textContent = currentUser
+      ? (
+          currentUser.displayName ||
+          currentUser.email ||
+          "Ty"
+        )
+      : "Ty";
 
-    const content =
-      document.createElement("div");
+    const message = document.createElement("div");
+    message.className = "message-text";
+    message.textContent = text;
 
-    content.className =
-      "message-content";
+    content.appendChild(name);
+    content.appendChild(message);
 
-    content.textContent = text;
+    if (attachments.length > 0) {
 
-    message.appendChild(avatar);
+      const files = document.createElement("div");
+      files.className = "attachment-preview";
+      files.style.marginTop = "9px";
 
-    message.appendChild(content);
+      attachments.forEach(file => {
 
-    messages.appendChild(message);
+        const item = document.createElement("div");
+        item.className = "attachment";
+        item.textContent = "📎 " + file.name;
 
-    if (scroll) {
-      scrollChat();
+        files.appendChild(item);
+
+      });
+
+      content.appendChild(files);
+
     }
+
+    wrapper.appendChild(content);
+    wrapper.appendChild(avatar);
+
+    messagesEl.appendChild(wrapper);
+
+    if (scroll) scrollToBottom();
+
   }
 
 
-  /* ================= RENDER AI ================= */
+  /* =========================================================
+     AI MESSAGE
+  ========================================================= */
 
-  function renderAIMessage(
-    text,
-    scroll = true
-  ) {
+  function renderAIMessage(text, scroll = true) {
 
-    const message =
-      document.createElement("div");
+    welcomeEl.style.display = "none";
 
-    message.className =
-      "message ai";
+    const wrapper = document.createElement("div");
+    wrapper.className = "message ai";
 
-    const avatar =
-      document.createElement("div");
-
-    avatar.className =
-      "message-avatar";
-
+    const avatar = document.createElement("div");
+    avatar.className = "message-avatar";
     avatar.textContent = "N";
 
-    const container =
-      document.createElement("div");
+    const content = document.createElement("div");
+    content.className = "message-content";
 
-    const content =
-      document.createElement("div");
+    const name = document.createElement("div");
+    name.className = "message-name";
+    name.textContent = "Nexa AI";
 
-    content.className =
-      "message-content";
+    const message = document.createElement("div");
+    message.className = "message-text";
+    message.textContent = text;
 
-    content.textContent = text;
+    const actions = document.createElement("div");
+    actions.className = "message-actions";
 
-    const tools =
-      document.createElement("div");
+    const speak = document.createElement("button");
+    speak.className = "message-action";
+    speak.textContent = "🔊 Prečítať";
 
-    tools.className =
-      "message-tools";
+    speak.onclick = () => speakText(text);
 
-    const speak =
-      document.createElement("button");
+    const copy = document.createElement("button");
+    copy.className = "message-action";
+    copy.textContent = "📋 Kopírovať";
 
-    speak.textContent =
-      "🔊 Prečítať";
+    copy.onclick = async () => {
 
-    speak.onclick = () => {
-      speakText(text);
+      try {
+
+        await navigator.clipboard.writeText(text);
+        showToast("Skopírované.");
+
+      } catch {
+
+        showToast("Kopírovanie sa nepodarilo.");
+
+      }
+
     };
 
-    tools.appendChild(speak);
+    actions.appendChild(speak);
+    actions.appendChild(copy);
 
-    container.appendChild(content);
+    content.appendChild(name);
+    content.appendChild(message);
+    content.appendChild(actions);
 
-    container.appendChild(tools);
+    wrapper.appendChild(avatar);
+    wrapper.appendChild(content);
 
-    message.appendChild(avatar);
+    messagesEl.appendChild(wrapper);
 
-    message.appendChild(container);
+    if (scroll) scrollToBottom();
 
-    messages.appendChild(message);
-
-    if (scroll) {
-      scrollChat();
-    }
   }
 
 
-  /* ================= HISTORY ================= */
+  /* =========================================================
+     CLEAR MESSAGES
+  ========================================================= */
 
-  function updateHistory() {
+  function clearMessages(showWelcome = true) {
 
-    history.innerHTML = "";
+    messagesEl.innerHTML = "";
 
-    chats
-      .slice()
-      .reverse()
-      .forEach(chat => {
+    welcomeEl.style.display =
+      showWelcome ? "flex" : "none";
 
-        const item =
-          document.createElement("div");
-
-        item.className =
-          "history-item" +
-          (
-            currentChat &&
-            currentChat.id === chat.id
-              ? " active"
-              : ""
-          );
-
-        item.textContent =
-          chat.title;
-
-        item.onclick = () => {
-          loadChat(chat.id);
-        };
-
-        history.appendChild(item);
-      });
   }
 
 
-  /* ================= SCROLL ================= */
+  /* =========================================================
+     HISTORY
+  ========================================================= */
 
-  function scrollChat() {
+  function renderHistory() {
 
-    const chat =
-      document.getElementById("chat");
+    historyEl.innerHTML = "";
 
-    chat.scrollTo({
-      top: chat.scrollHeight,
-      behavior: "smooth"
+    const ids = Object.keys(chats);
+
+    ids.sort((a, b) => {
+
+      return (
+        (chats[b].updatedAt || 0) -
+        (chats[a].updatedAt || 0)
+      );
+
     });
+
+    if (ids.length === 0) {
+
+      historyEl.innerHTML =
+        '<div class="empty-history">Zatiaľ žiadne chaty</div>';
+
+      return;
+
+    }
+
+    ids.forEach(id => {
+
+      const chat = chats[id];
+
+      const item = document.createElement("div");
+
+      item.className =
+        "history-item" +
+        (
+          currentChat &&
+          currentChat.id === id
+            ? " active"
+            : ""
+        );
+
+      item.textContent =
+        chat.title || "Nový chat";
+
+      item.title =
+        chat.title || "Nový chat";
+
+      item.onclick = () => loadChat(id);
+
+      historyEl.appendChild(item);
+
+    });
+
   }
 
 
-   /* ================= FILES ================= */
+  /* =========================================================
+     FILES
+  ========================================================= */
 
-  function handleFiles(event) {
+  window.handleFiles = function(event) {
 
     const files =
       Array.from(event.target.files);
 
-    selectedFiles = [
-      ...selectedFiles,
-      ...files
-    ];
+    selectedFiles.push(...files);
 
     renderAttachments();
 
     event.target.value = "";
-  }
+
+  };
 
 
   function renderAttachments() {
 
     attachmentPreview.innerHTML = "";
 
-    if (
-      selectedFiles.length === 0
-    ) {
+    selectedFiles.forEach((file, index) => {
 
-      attachmentPreview.style.display =
-        "none";
+      const item = document.createElement("div");
+      item.className = "attachment";
 
-      return;
-    }
+      const name = document.createElement("span");
+      name.textContent = "📎 " + file.name;
 
-    attachmentPreview.style.display =
-      "flex";
+      const remove = document.createElement("button");
+      remove.textContent = "×";
 
-    selectedFiles.forEach(
-      (file, index) => {
+      remove.onclick = () => {
 
-        const item =
-          document.createElement("div");
+        selectedFiles.splice(index, 1);
+        renderAttachments();
 
-        item.className =
-          "attachment";
+      };
 
-        item.innerHTML =
-          "📎 " +
-          escapeHTML(file.name) +
-          ` <button onclick="removeFile(${index})">×</button>`;
+      item.appendChild(name);
+      item.appendChild(remove);
 
-        attachmentPreview.appendChild(item);
-      }
-    );
+      attachmentPreview.appendChild(item);
+
+    });
+
   }
 
 
-  function removeFile(index) {
+  /* =========================================================
+     MICROPHONE
+  ========================================================= */
 
-    selectedFiles.splice(index, 1);
+  window.startMicrophone = function() {
 
-    renderAttachments();
-  }
+    showToast("🎤 Mikrofón sa pripravuje…");
 
-
-  function escapeHTML(text) {
-
-    return text
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
+  };
 
 
-  /* ================= MICROPHONE ================= */
-
-  function prepareMicrophone() {
-
-    showToast(
-      "🎤 Mikrofón sa pripravuje..."
-    );
-
-    const button =
-      document.getElementById(
-        "micButton"
-      );
-
-    button.classList.add("active");
-
-    setTimeout(() => {
-
-      button.classList.remove("active");
-
-      showToast(
-        "🎤 Hlasové ovládanie Nexa AI sa pripravuje."
-      );
-
-    }, 1800);
-  }
-
-
-  /* ================= SPEECH ================= */
+  /* =========================================================
+     SPEECH SYNTHESIS
+  ========================================================= */
 
   function speakText(text) {
 
-    if (
-      !("speechSynthesis" in window)
-    ) {
+    if (!("speechSynthesis" in window)) {
 
-      showToast(
-        "Tento prehliadač nepodporuje hlasové čítanie."
-      );
-
+      showToast("Prehrávanie hlasu nie je podporované.");
       return;
+
     }
 
     window.speechSynthesis.cancel();
 
-    const speech =
+    const utterance =
       new SpeechSynthesisUtterance(text);
 
-    speech.lang = "sk-SK";
+    utterance.lang = "sk-SK";
+    utterance.rate = 1;
+    utterance.pitch = 1;
 
-    speech.rate = 1;
+    window.speechSynthesis.speak(utterance);
 
-    speech.pitch = 1;
-
-    window.speechSynthesis.speak(
-      speech
-    );
   }
 
 
-  /* ================= CAMERA ================= */
+  /* =========================================================
+     CAMERA
+  ========================================================= */
 
-  async function openCamera() {
+  window.showCamera = async function() {
 
-    if (
-      !navigator.mediaDevices ||
-      !navigator.mediaDevices.getUserMedia
-    ) {
+    const modal =
+      document.getElementById("cameraModal");
 
-      showToast(
-        "Kamera nie je v tomto prehliadači dostupná."
-      );
-
-      return;
-    }
+    const video =
+      document.getElementById("cameraVideo");
 
     try {
 
-      currentStream =
+      cameraStream =
         await navigator.mediaDevices.getUserMedia({
           video: true,
           audio: false
         });
 
-      mediaVideo.srcObject =
-        currentStream;
+      video.srcObject = cameraStream;
 
-      document.getElementById(
-        "mediaTitle"
-      ).textContent =
-        "📷 Nexa AI kamera";
-
-      mediaModal.classList.add("show");
+      modal.classList.add("show");
 
     } catch (error) {
 
+      console.error(error);
+
       showToast(
-        "Prístup ku kamere bol zamietnutý alebo nie je dostupný."
+        "Kameru sa nepodarilo spustiť. Skontroluj povolenia."
       );
+
     }
-  }
+
+  };
 
 
-  /* ================= SCREEN ================= */
+  window.closeCamera = function() {
 
-  async function shareScreen() {
+    const modal =
+      document.getElementById("cameraModal");
 
-    if (
-      !navigator.mediaDevices ||
-      !navigator.mediaDevices.getDisplayMedia
-    ) {
+    const video =
+      document.getElementById("cameraVideo");
+
+    if (cameraStream) {
+
+      cameraStream
+        .getTracks()
+        .forEach(track => track.stop());
+
+      cameraStream = null;
+
+    }
+
+    video.srcObject = null;
+
+    modal.classList.remove("show");
+
+  };
+
+
+  window.capturePhoto = function() {
+
+    const video =
+      document.getElementById("cameraVideo");
+
+    if (!video.videoWidth) {
+
+      showToast("Kamera ešte nie je pripravená.");
+      return;
+
+    }
+
+    const canvas =
+      document.createElement("canvas");
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    const ctx =
+      canvas.getContext("2d");
+
+    ctx.drawImage(
+      video,
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+    canvas.toBlob(blob => {
+
+      if (!blob) return;
+
+      const file =
+        new File(
+          [blob],
+          "nexa-camera.jpg",
+          { type: "image/jpeg" }
+        );
+
+      selectedFiles.push(file);
+
+      renderAttachments();
+
+      closeCamera();
+
+      showToast("📸 Fotografia bola pridaná.");
+
+    }, "image/jpeg", 0.9);
+
+  };
+
+
+  /* =========================================================
+     SCREEN SHARE
+  ========================================================= */
+
+  window.shareScreen = async function() {
+
+    if (!navigator.mediaDevices?.getDisplayMedia) {
 
       showToast(
         "Zdieľanie obrazovky nie je podporované."
       );
 
       return;
+
     }
 
     try {
 
-      currentStream =
+      screenStream =
         await navigator.mediaDevices.getDisplayMedia({
           video: true,
           audio: true
         });
 
-      mediaVideo.srcObject =
-        currentStream;
+      showToast(
+        "🖥️ Zdieľanie obrazovky je aktívne."
+      );
 
-      document.getElementById(
-        "mediaTitle"
-      ).textContent =
-        "🖥️ Zdieľanie obrazovky";
+      const track =
+        screenStream.getVideoTracks()[0];
 
-      mediaModal.classList.add("show");
+      track.addEventListener("ended", () => {
 
-      currentStream
-        .getVideoTracks()[0]
-        .addEventListener(
-          "ended",
-          () => {
-            closeMedia();
-          }
+        screenStream = null;
+
+        showToast(
+          "Zdieľanie obrazovky bolo ukončené."
         );
 
+      });
+
     } catch (error) {
+
+      console.error(error);
 
       showToast(
         "Zdieľanie obrazovky bolo zrušené."
       );
-    }
-  }
 
-
-  function closeMedia() {
-
-    mediaModal.classList.remove(
-      "show"
-    );
-
-    if (currentStream) {
-
-      currentStream
-        .getTracks()
-        .forEach(track => {
-          track.stop();
-        });
-
-      currentStream = null;
     }
 
-    mediaVideo.srcObject = null;
+  };
+
+
+  /* =========================================================
+     TEXTAREA
+  ========================================================= */
+
+  window.autoResize = function(textarea) {
+
+    textarea.style.height = "auto";
+
+    textarea.style.height =
+      Math.min(textarea.scrollHeight, 150) + "px";
+
+  };
+
+
+  window.handleEnter = function(event) {
+
+    if (
+      event.key === "Enter" &&
+      !event.shiftKey
+    ) {
+
+      event.preventDefault();
+
+      sendMessage();
+
+    }
+
+  };
+
+
+  /* =========================================================
+     SCROLL
+  ========================================================= */
+
+  function scrollToBottom() {
+
+    const area =
+      document.getElementById("chatArea");
+
+    setTimeout(() => {
+
+      area.scrollTo({
+        top: area.scrollHeight,
+        behavior: "smooth"
+      });
+
+    }, 30);
+
   }
 
 
-  /* ================= SIDEBAR ================= */
+  /* =========================================================
+     TOAST
+  ========================================================= */
 
-  function toggleSidebar() {
+  let toastTimer = null;
 
-    document
-      .getElementById("sidebar")
-      .classList.toggle("open");
-  }
-
-
-  /* ================= TOAST ================= */
-
-  let toastTimer;
-
-  function showToast(text) {
+  window.showToast = function(message) {
 
     const toast =
-      document.getElementById(
-        "toast"
-      );
+      document.getElementById("toast");
 
-    toast.textContent = text;
-
+    toast.textContent = message;
     toast.classList.add("show");
 
     clearTimeout(toastTimer);
 
-    toastTimer =
-      setTimeout(() => {
+    toastTimer = setTimeout(() => {
 
-        toast.classList.remove(
-          "show"
-        );
+      toast.classList.remove("show");
 
-      }, 2500);
-  }
+    }, 2800);
+
+  };
 
 
-  /* ================= TEXTAREA ================= */
+  /* =========================================================
+     CLOSE USER MENU WHEN CLICKING OUTSIDE
+  ========================================================= */
 
-  input.addEventListener(
-    "input",
-    () => {
+  document.addEventListener("click", event => {
 
-      input.style.height = "auto";
+    const menu =
+      document.getElementById("userMenu");
 
-      input.style.height =
-        Math.min(
-          input.scrollHeight,
-          150
-        ) + "px";
+    const profile =
+      document.getElementById("profileButton");
+
+    if (
+      !menu.contains(event.target) &&
+      !profile.contains(event.target)
+    ) {
+
+      menu.classList.remove("show");
+
     }
-  );
+
+  });
 
 
-  /* ================= ENTER ================= */
+  /* =========================================================
+     PAGE CLOSE
+  ========================================================= */
 
-  input.addEventListener(
-    "keydown",
-    event => {
+  window.addEventListener("beforeunload", () => {
 
-      if (
-        event.key === "Enter" &&
-        !event.shiftKey
-      ) {
+    /*
+      Firebase ukladá správy priebežne po odoslaní,
+      takže chat sa nestratí pri obnovení stránky.
+    */
 
-        event.preventDefault();
+    if (cameraStream) {
 
-        sendMessage();
-      }
+      cameraStream
+        .getTracks()
+        .forEach(track => track.stop());
+
     }
-  );
+
+    if (screenStream) {
+
+      screenStream
+        .getTracks()
+        .forEach(track => track.stop());
+
+    }
+
+  });
 
 
-  /* ================= START ================= */
+  /* =========================================================
+     START
+  ========================================================= */
 
-  /*
-    Na začiatku nie je vytvorených
-    5 prázdnych chatov.
-
-    Prvý chat vznikne až keď používateľ
-    začne skutočne písať alebo klikne
-    na "Nový chat".
-  */
+  renderHistory();
 
 </script>
 
