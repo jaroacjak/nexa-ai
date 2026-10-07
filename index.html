@@ -21,7 +21,7 @@
       --text: #f4f4f5;
       --muted: #9b9ba5;
       --accent: #8b5cf6;
-      --accent2: #a78bfa;
+      --accent-hover: #7c3aed;
       --danger: #ef4444;
     }
 
@@ -43,7 +43,9 @@
       cursor: pointer;
     }
 
-    /* APP */
+    /* =========================
+       APP
+    ========================= */
 
     .app {
       display: flex;
@@ -51,17 +53,18 @@
       height: 100vh;
     }
 
-    /* SIDEBAR */
+    /* =========================
+       SIDEBAR
+    ========================= */
 
     .sidebar {
-      width: 270px;
+      width: 275px;
       height: 100%;
       background: var(--sidebar);
       border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
       padding: 16px;
-      transition: 0.25s;
       flex-shrink: 0;
     }
 
@@ -113,28 +116,7 @@
     .history {
       flex: 1;
       overflow-y: auto;
-      padding-right: 3px;
-    }
-
-    .history-item {
-      padding: 11px 12px;
-      border-radius: 10px;
-      color: #d8d8de;
-      font-size: 14px;
-      margin-bottom: 4px;
-      cursor: pointer;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .history-item:hover {
-      background: #1c1c22;
-    }
-
-    .history-item.active {
-      background: #25232d;
-      color: white;
+      padding-right: 2px;
     }
 
     .empty-history {
@@ -142,6 +124,77 @@
       font-size: 13px;
       padding: 8px;
     }
+
+    .history-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px;
+      border-radius: 11px;
+      margin-bottom: 4px;
+    }
+
+    .history-item.active {
+      background: #211f29;
+    }
+
+    .history-main {
+      flex: 1;
+      min-width: 0;
+      padding: 9px;
+      border-radius: 9px;
+      color: #d8d8de;
+      font-size: 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .history-main:hover {
+      background: #1d1d23;
+      color: white;
+    }
+
+    .history-item.active .history-main {
+      color: white;
+    }
+
+    .history-actions {
+      display: flex;
+      gap: 2px;
+      opacity: 0;
+      transition: 0.15s;
+    }
+
+    .history-item:hover .history-actions,
+    .history-item.active .history-actions {
+      opacity: 1;
+    }
+
+    .history-action {
+      width: 30px;
+      height: 30px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: #888893;
+      font-size: 14px;
+    }
+
+    .history-action:hover {
+      background: #2a2a31;
+      color: white;
+    }
+
+    .history-action.delete:hover {
+      color: #f87171;
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    /* =========================
+       PROFILE
+    ========================= */
 
     .profile {
       border-top: 1px solid var(--border);
@@ -186,7 +239,9 @@
       text-overflow: ellipsis;
     }
 
-    /* MAIN */
+    /* =========================
+       MAIN
+    ========================= */
 
     .main {
       flex: 1;
@@ -209,6 +264,10 @@
     .top-title {
       font-size: 15px;
       color: #ddd;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 60%;
     }
 
     .top-actions {
@@ -231,7 +290,9 @@
       background: #24242b;
     }
 
-    /* CHAT */
+    /* =========================
+       CHAT
+    ========================= */
 
     .chat-area {
       flex: 1;
@@ -295,6 +356,7 @@
         opacity: 0;
         transform: translateY(5px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -365,7 +427,9 @@
       color: white;
     }
 
-    /* ATTACHMENTS */
+    /* =========================
+       ATTACHMENTS
+    ========================= */
 
     .attachment-preview {
       display: flex;
@@ -393,7 +457,9 @@
       cursor: pointer;
     }
 
-    /* INPUT */
+    /* =========================
+       INPUT
+    ========================= */
 
     .input-section {
       padding: 12px 20px 18px;
@@ -464,7 +530,7 @@
     }
 
     .send-btn:hover {
-      background: #7c3aed;
+      background: var(--accent-hover);
     }
 
     .input-hint {
@@ -474,7 +540,9 @@
       margin-top: 8px;
     }
 
-    /* TOAST */
+    /* =========================
+       TOAST
+    ========================= */
 
     .toast {
       position: fixed;
@@ -498,7 +566,9 @@
       transform: translate(-50%, 0);
     }
 
-    /* MODAL */
+    /* =========================
+       MODAL
+    ========================= */
 
     .modal-overlay {
       position: fixed;
@@ -573,13 +643,15 @@
       background: var(--accent);
     }
 
-    /* USER MENU */
+    /* =========================
+       USER MENU
+    ========================= */
 
     .user-menu {
       position: fixed;
       left: 16px;
       bottom: 75px;
-      width: 238px;
+      width: 245px;
       background: #18181e;
       border: 1px solid var(--border);
       border-radius: 14px;
@@ -611,9 +683,43 @@
       color: #f87171;
     }
 
-    /* MOBILE */
+    /* =========================
+       CONFIRM / RENAME MODAL
+    ========================= */
+
+    .small-modal {
+      width: min(430px, 100%);
+    }
+
+    .modal-text {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .modal-input {
+      width: 100%;
+      height: 45px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #0f0f14;
+      color: white;
+      padding: 0 12px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .modal-input:focus {
+      border-color: var(--accent);
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
 
     @media (max-width: 760px) {
+
       .sidebar {
         width: 76px;
         padding: 12px 9px;
@@ -627,7 +733,7 @@
       .new-chat span,
       .history-title,
       .profile-info,
-      .history-item {
+      .history-main {
         display: none;
       }
 
@@ -638,6 +744,15 @@
 
       .profile {
         justify-content: center;
+      }
+
+      .history-item {
+        justify-content: center;
+      }
+
+      .history-actions {
+        opacity: 1;
+        flex-direction: column;
       }
 
       .chat-area {
@@ -663,7 +778,10 @@
 
 <div class="app">
 
-  <!-- SIDEBAR -->
+  <!-- =========================
+       SIDEBAR
+  ========================== -->
+
   <aside class="sidebar">
 
     <div class="logo">
@@ -675,64 +793,133 @@
       ＋ <span>Nový chat</span>
     </button>
 
-    <div class="history-title">História</div>
-
-    <div class="history" id="history">
-      <div class="empty-history">Zatiaľ žiadne chaty</div>
+    <div class="history-title">
+      História
     </div>
 
-    <div class="profile" id="profileButton" onclick="toggleUserMenu()">
-      <div class="avatar" id="avatar">?</div>
+    <div class="history" id="history">
+      <div class="empty-history">
+        Zatiaľ žiadne chaty
+      </div>
+    </div>
+
+    <div
+      class="profile"
+      id="profileButton"
+      onclick="toggleUserMenu()"
+    >
+      <div class="avatar" id="avatar">
+        ?
+      </div>
 
       <div class="profile-info">
-        <div class="profile-name" id="profileName">Používateľ</div>
-        <div class="profile-email" id="profileEmail">Prihlásiť sa</div>
+        <div class="profile-name" id="profileName">
+          Používateľ
+        </div>
+
+        <div class="profile-email" id="profileEmail">
+          Prihlásiť sa
+        </div>
       </div>
     </div>
 
   </aside>
 
-  <!-- MAIN -->
+
+  <!-- =========================
+       MAIN
+  ========================== -->
+
   <main class="main">
 
     <header class="topbar">
-      <div class="top-title" id="topTitle">Nexa AI</div>
+
+      <div
+        class="top-title"
+        id="topTitle"
+      >
+        Nexa AI
+      </div>
 
       <div class="top-actions">
-        <button class="icon-btn" onclick="showCamera()" title="Kamera">📷</button>
-        <button class="icon-btn" onclick="shareScreen()" title="Zdieľať obrazovku">🖥️</button>
+
+        <button
+          class="icon-btn"
+          onclick="showCamera()"
+          title="Kamera"
+        >
+          📷
+        </button>
+
+        <button
+          class="icon-btn"
+          onclick="shareScreen()"
+          title="Zdieľať obrazovku"
+        >
+          🖥️
+        </button>
+
       </div>
+
     </header>
 
-    <section class="chat-area" id="chatArea">
+
+    <!-- =========================
+         CHAT AREA
+    ========================== -->
+
+    <section
+      class="chat-area"
+      id="chatArea"
+    >
 
       <div class="chat-container">
 
-        <div class="welcome" id="welcome">
-          <div class="welcome-logo">N</div>
+        <div
+          class="welcome"
+          id="welcome"
+        >
 
-          <h1>Ako ti môžem pomôcť?</h1>
+          <div class="welcome-logo">
+            N
+          </div>
+
+          <h1>
+            Ako ti môžem pomôcť?
+          </h1>
 
           <p>
-            Som Nexa AI. Môžeš mi napísať otázku, pridať súbor,
-            použiť kameru alebo zdieľať obrazovku.
+            Som Nexa AI. Môžeš mi napísať otázku,
+            pridať súbor, použiť kameru alebo
+            zdieľať obrazovku.
           </p>
+
         </div>
 
-        <div class="messages" id="messages"></div>
+        <div
+          class="messages"
+          id="messages"
+        ></div>
 
       </div>
 
     </section>
 
-    <!-- INPUT -->
+
+    <!-- =========================
+         INPUT
+    ========================== -->
+
     <section class="input-section">
 
       <div class="input-container">
 
         <div class="input-box">
 
-          <div class="attachment-preview" id="attachmentPreview"></div>
+          <div
+            class="attachment-preview"
+            id="attachmentPreview"
+          ></div>
 
           <div class="input-row">
 
@@ -758,19 +945,25 @@
                 class="input-btn"
                 onclick="document.getElementById('fileInput').click()"
                 title="Priložiť súbor"
-              >📎</button>
+              >
+                📎
+              </button>
 
               <button
                 class="input-btn"
                 onclick="startMicrophone()"
                 title="Mikrofón"
-              >🎤</button>
+              >
+                🎤
+              </button>
 
               <button
                 class="input-btn send-btn"
                 onclick="sendMessage()"
                 title="Odoslať"
-              >➤</button>
+              >
+                ➤
+              </button>
 
             </div>
 
@@ -790,38 +983,210 @@
 
 </div>
 
-<!-- TOAST -->
-<div class="toast" id="toast"></div>
 
-<!-- CAMERA MODAL -->
-<div class="modal-overlay" id="cameraModal">
+<!-- =========================
+     TOAST
+========================== -->
+
+<div
+  class="toast"
+  id="toast"
+></div>
+
+
+<!-- =========================
+     CAMERA MODAL
+========================== -->
+
+<div
+  class="modal-overlay"
+  id="cameraModal"
+>
 
   <div class="modal">
 
     <div class="modal-header">
-      <div class="modal-title">📷 Kamera</div>
-      <button class="close-btn" onclick="closeCamera()">×</button>
+
+      <div class="modal-title">
+        📷 Kamera
+      </div>
+
+      <button
+        class="close-btn"
+        onclick="closeCamera()"
+      >
+        ×
+      </button>
+
     </div>
 
-    <video id="cameraVideo" autoplay playsinline></video>
+    <video
+      id="cameraVideo"
+      autoplay
+      playsinline
+    ></video>
 
     <div class="modal-footer">
-      <button class="modal-button" onclick="closeCamera()">Zavrieť</button>
-      <button class="modal-button primary" onclick="capturePhoto()">📸 Odfotiť</button>
+
+      <button
+        class="modal-button"
+        onclick="closeCamera()"
+      >
+        Zavrieť
+      </button>
+
+      <button
+        class="modal-button primary"
+        onclick="capturePhoto()"
+      >
+        📸 Odfotiť
+      </button>
+
     </div>
 
   </div>
 
 </div>
 
-<!-- USER MENU -->
-<div class="user-menu" id="userMenu">
 
-  <button class="user-menu-item" onclick="openProfile()">
+<!-- =========================
+     RENAME MODAL
+========================== -->
+
+<div
+  class="modal-overlay"
+  id="renameModal"
+>
+
+  <div class="modal small-modal">
+
+    <div class="modal-header">
+
+      <div class="modal-title">
+        ✏️ Premenovať chat
+      </div>
+
+      <button
+        class="close-btn"
+        onclick="closeRenameModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div class="modal-text">
+      Zadaj nový názov tohto chatu.
+    </div>
+
+    <input
+      class="modal-input"
+      id="renameInput"
+      type="text"
+      maxlength="80"
+      placeholder="Názov chatu"
+    >
+
+    <div class="modal-footer">
+
+      <button
+        class="modal-button"
+        onclick="closeRenameModal()"
+      >
+        Zrušiť
+      </button>
+
+      <button
+        class="modal-button primary"
+        onclick="confirmRename()"
+      >
+        Uložiť
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     DELETE MODAL
+========================== -->
+
+<div
+  class="modal-overlay"
+  id="deleteModal"
+>
+
+  <div class="modal small-modal">
+
+    <div class="modal-header">
+
+      <div class="modal-title">
+        🗑️ Vymazať chat
+      </div>
+
+      <button
+        class="close-btn"
+        onclick="closeDeleteModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div
+      class="modal-text"
+      id="deleteText"
+    >
+      Naozaj chceš tento chat vymazať?
+    </div>
+
+    <div class="modal-footer">
+
+      <button
+        class="modal-button"
+        onclick="closeDeleteModal()"
+      >
+        Zrušiť
+      </button>
+
+      <button
+        class="modal-button"
+        style="background:#dc2626;"
+        onclick="confirmDelete()"
+      >
+        Vymazať
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     USER MENU
+========================== -->
+
+<div
+  class="user-menu"
+  id="userMenu"
+>
+
+  <button
+    class="user-menu-item"
+    onclick="openProfile()"
+  >
     👤 Profil
   </button>
 
-  <button class="user-menu-item" onclick="openRegister()">
+  <button
+    class="user-menu-item"
+    onclick="openRegister()"
+  >
     🔐 Prihlásenie / Registrácia
   </button>
 
@@ -835,11 +1200,12 @@
 
 </div>
 
+
 <script type="module">
 
-  /* =========================================================
+  /* =====================================================
      FIREBASE
-  ========================================================= */
+  ===================================================== */
 
   import {
     initializeApp
@@ -861,92 +1227,151 @@
 
 
   const firebaseConfig = {
-    apiKey: "AIzaSyCimyyuJq7YVIamV-EQ8qbjDvhypc1ZVHw",
-    authDomain: "nexai-650a7.firebaseapp.com",
-    databaseURL: "https://nexai-650a7-default-rtdb.firebaseio.com",
-    projectId: "nexai-650a7",
-    storageBucket: "nexai-650a7.firebasestorage.app",
-    messagingSenderId: "713886761376",
-    appId: "1:713886761376:web:bb39afe7185406704d64c5",
-    measurementId: "G-2MGJ1LPF2M"
+
+    apiKey:
+      "AIzaSyCimyyuJq7YVIamV-EQ8qbjDvhypc1ZVHw",
+
+    authDomain:
+      "nexai-650a7.firebaseapp.com",
+
+    databaseURL:
+      "https://nexai-650a7-default-rtdb.firebaseio.com",
+
+    projectId:
+      "nexai-650a7",
+
+    storageBucket:
+      "nexai-650a7.firebasestorage.app",
+
+    messagingSenderId:
+      "713886761376",
+
+    appId:
+      "1:713886761376:web:bb39afe7185406704d64c5",
+
+    measurementId:
+      "G-2MGJ1LPF2M"
+
   };
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getDatabase(app);
+
+  const app =
+    initializeApp(firebaseConfig);
+
+  const auth =
+    getAuth(app);
+
+  const db =
+    getDatabase(app);
 
 
-  /* =========================================================
-     CHAT STATE
-  ========================================================= */
+  /* =====================================================
+     STATE
+  ===================================================== */
 
   let currentUser = null;
+
   let currentChat = null;
+
   let chats = {};
+
   let selectedFiles = [];
 
   let cameraStream = null;
+
   let screenStream = null;
 
+  let renameChatId = null;
 
-  /* =========================================================
+  let deleteChatId = null;
+
+
+  /* =====================================================
      ELEMENTS
-  ========================================================= */
+  ===================================================== */
 
-  const messagesEl = document.getElementById("messages");
-  const welcomeEl = document.getElementById("welcome");
-  const historyEl = document.getElementById("history");
-  const messageInput = document.getElementById("messageInput");
-  const attachmentPreview = document.getElementById("attachmentPreview");
+  const messagesEl =
+    document.getElementById("messages");
+
+  const welcomeEl =
+    document.getElementById("welcome");
+
+  const historyEl =
+    document.getElementById("history");
+
+  const messageInput =
+    document.getElementById("messageInput");
+
+  const attachmentPreview =
+    document.getElementById("attachmentPreview");
 
 
-  /* =========================================================
-     AUTH
-  ========================================================= */
+  /* =====================================================
+     AUTH STATE
+  ===================================================== */
 
-  onAuthStateChanged(auth, async (user) => {
+  onAuthStateChanged(
+    auth,
+    async (user) => {
 
-    currentUser = user;
+      currentUser = user;
 
-    if (user) {
+      if (user) {
 
-      const name =
-        user.displayName ||
-        user.email?.split("@")[0] ||
-        "Používateľ";
+        const name =
+          user.displayName ||
+          user.email?.split("@")[0] ||
+          "Používateľ";
 
-      document.getElementById("profileName").textContent = name;
-      document.getElementById("profileEmail").textContent =
-        user.email || "";
+        document.getElementById(
+          "profileName"
+        ).textContent = name;
 
-      document.getElementById("avatar").textContent =
-        name.charAt(0).toUpperCase();
+        document.getElementById(
+          "profileEmail"
+        ).textContent =
+          user.email || "";
 
-      await loadChats();
+        document.getElementById(
+          "avatar"
+        ).textContent =
+          name.charAt(0).toUpperCase();
 
-    } else {
+        await loadChats();
 
-      document.getElementById("profileName").textContent =
-        "Používateľ";
+      } else {
 
-      document.getElementById("profileEmail").textContent =
-        "Prihlásiť sa";
+        document.getElementById(
+          "profileName"
+        ).textContent =
+          "Používateľ";
 
-      document.getElementById("avatar").textContent = "?";
+        document.getElementById(
+          "profileEmail"
+        ).textContent =
+          "Prihlásiť sa";
 
-      chats = {};
-      currentChat = null;
+        document.getElementById(
+          "avatar"
+        ).textContent = "?";
 
-      renderHistory();
-      clearMessages();
+        chats = {};
+
+        currentChat = null;
+
+        renderHistory();
+
+        clearMessages();
+
+      }
+
     }
+  );
 
-  });
 
-
-  /* =========================================================
+  /* =====================================================
      USER MENU
-  ========================================================= */
+  ===================================================== */
 
   window.toggleUserMenu = function() {
 
@@ -959,7 +1384,8 @@
 
   window.openRegister = function() {
 
-    window.location.href = "register.html";
+    window.location.href =
+      "register.html";
 
   };
 
@@ -967,14 +1393,21 @@
   window.openProfile = function() {
 
     if (!currentUser) {
-      window.location.href = "register.html";
+
+      window.location.href =
+        "register.html";
+
       return;
+
     }
 
-    showToast("Profil používateľa: " + (
-      currentUser.displayName ||
-      currentUser.email
-    ));
+    showToast(
+      "Prihlásený používateľ: " +
+      (
+        currentUser.displayName ||
+        currentUser.email
+      )
+    );
 
   };
 
@@ -991,21 +1424,26 @@
         .getElementById("userMenu")
         .classList.remove("show");
 
-      showToast("Boli ste odhlásený.");
+      showToast(
+        "Boli ste odhlásený."
+      );
 
     } catch (error) {
 
       console.error(error);
-      showToast("Odhlásenie sa nepodarilo.");
+
+      showToast(
+        "Odhlásenie sa nepodarilo."
+      );
 
     }
 
   };
 
 
-  /* =========================================================
-     LOAD CHATS FROM FIREBASE
-  ========================================================= */
+  /* =====================================================
+     LOAD CHATS
+  ===================================================== */
 
   async function loadChats() {
 
@@ -1014,55 +1452,69 @@
     try {
 
       const chatsRef =
-        ref(db, `users/${currentUser.uid}/chats`);
+        ref(
+          db,
+          `users/${currentUser.uid}/chats`
+        );
 
-      const snapshot = await get(chatsRef);
+      const snapshot =
+        await get(chatsRef);
 
-      chats = snapshot.exists()
-        ? snapshot.val()
-        : {};
+      chats =
+        snapshot.exists()
+          ? snapshot.val()
+          : {};
 
       renderHistory();
 
-      const chatIds = Object.keys(chats);
+      const ids =
+        Object.keys(chats);
 
-      if (chatIds.length > 0) {
+      if (ids.length > 0) {
 
-        chatIds.sort((a, b) => {
+        ids.sort(
+          (a, b) =>
+            (chats[b].updatedAt || 0) -
+            (chats[a].updatedAt || 0)
+        );
 
-          const timeA = chats[a].updatedAt || 0;
-          const timeB = chats[b].updatedAt || 0;
-
-          return timeB - timeA;
-
-        });
-
-        loadChat(chatIds[0]);
+        loadChat(ids[0]);
 
       } else {
 
         currentChat = null;
+
         clearMessages();
+
+        document.getElementById(
+          "topTitle"
+        ).textContent =
+          "Nexa AI";
 
       }
 
     } catch (error) {
 
       console.error(error);
-      showToast("Nepodarilo sa načítať históriu.");
+
+      showToast(
+        "Históriu sa nepodarilo načítať."
+      );
 
     }
 
   }
 
 
-  /* =========================================================
-     SAVE CHAT TO FIREBASE
-  ========================================================= */
+  /* =====================================================
+     SAVE CURRENT CHAT
+  ===================================================== */
 
   async function saveCurrentChat() {
 
-    if (!currentUser || !currentChat) return;
+    if (!currentUser || !currentChat) {
+      return;
+    }
 
     if (
       !currentChat.messages ||
@@ -1071,9 +1523,11 @@
       return;
     }
 
-    currentChat.updatedAt = Date.now();
+    currentChat.updatedAt =
+      Date.now();
 
-    chats[currentChat.id] = currentChat;
+    chats[currentChat.id] =
+      currentChat;
 
     try {
 
@@ -1090,16 +1544,19 @@
     } catch (error) {
 
       console.error(error);
-      showToast("Chat sa nepodarilo uložiť.");
+
+      showToast(
+        "Chat sa nepodarilo uložiť."
+      );
 
     }
 
   }
 
 
-  /* =========================================================
-     CREATE NEW CHAT
-  ========================================================= */
+  /* =====================================================
+     CREATE CHAT
+  ===================================================== */
 
   function createLocalChat() {
 
@@ -1112,17 +1569,31 @@
         .substring(2, 8);
 
     const chat = {
+
       id: id,
-      title: "Nový chat",
-      createdAt: Date.now(),
-      updatedAt: Date.now(),
-      messages: []
+
+      title:
+        "Nový chat",
+
+      createdAt:
+        Date.now(),
+
+      updatedAt:
+        Date.now(),
+
+      messages:
+        []
+
     };
 
-    chats[id] = chat;
-    currentChat = chat;
+    chats[id] =
+      chat;
+
+    currentChat =
+      chat;
 
     clearMessages();
+
     renderHistory();
 
     return chat;
@@ -1130,13 +1601,17 @@
   }
 
 
-  /* =========================================================
+  /* =====================================================
      NEW CHAT
-  ========================================================= */
+  ===================================================== */
 
   window.newChat = async function() {
 
-    if (currentChat && currentChat.messages.length > 0) {
+    if (
+      currentChat &&
+      currentChat.messages &&
+      currentChat.messages.length > 0
+    ) {
 
       await saveCurrentChat();
 
@@ -1147,12 +1622,17 @@
     clearMessages();
 
     messageInput.value = "";
-    messageInput.style.height = "auto";
+
+    messageInput.style.height =
+      "auto";
 
     selectedFiles = [];
+
     renderAttachments();
 
-    document.getElementById("topTitle").textContent =
+    document.getElementById(
+      "topTitle"
+    ).textContent =
       "Nový chat";
 
     renderHistory();
@@ -1162,45 +1642,57 @@
   };
 
 
-  /* =========================================================
+  /* =====================================================
      LOAD CHAT
-  ========================================================= */
+  ===================================================== */
 
   window.loadChat = function(id) {
 
-    const chat = chats[id];
+    const chat =
+      chats[id];
 
     if (!chat) return;
 
-    currentChat = chat;
+    currentChat =
+      chat;
 
     clearMessages(false);
 
-    document.getElementById("topTitle").textContent =
-      chat.title || "Nexa AI";
+    document.getElementById(
+      "topTitle"
+    ).textContent =
+      chat.title ||
+      "Nexa AI";
 
-    if (chat.messages && chat.messages.length > 0) {
+    if (
+      chat.messages &&
+      chat.messages.length > 0
+    ) {
 
-      chat.messages.forEach(message => {
+      chat.messages.forEach(
+        message => {
 
-        if (message.role === "user") {
+          if (
+            message.role === "user"
+          ) {
 
-          renderUserMessage(
-            message.text,
-            message.attachments || [],
-            false
-          );
+            renderUserMessage(
+              message.text,
+              message.attachments || [],
+              false
+            );
 
-        } else {
+          } else {
 
-          renderAIMessage(
-            message.text,
-            false
-          );
+            renderAIMessage(
+              message.text,
+              false
+            );
+
+          }
 
         }
-
-      });
+      );
 
     }
 
@@ -1211,46 +1703,70 @@
   };
 
 
-  /* =========================================================
+  /* =====================================================
      SEND MESSAGE
-  ========================================================= */
+  ===================================================== */
 
   window.sendMessage = async function() {
 
-    const text = messageInput.value.trim();
+    const text =
+      messageInput.value.trim();
 
-    if (!text && selectedFiles.length === 0) {
+    if (
+      !text &&
+      selectedFiles.length === 0
+    ) {
       return;
     }
 
     /*
-      Dôležité:
-      Tu sa NEVYTVÁRA nový chat pri každej správe.
-      Chat sa vytvorí iba vtedy, keď momentálne žiadny nemáme.
+      Nový chat vznikne iba vtedy,
+      ak žiadny aktuálne neexistuje.
     */
 
     if (!currentChat) {
 
-      currentChat = createLocalChat();
+      currentChat =
+        createLocalChat();
 
     }
 
-    const attachments = selectedFiles.map(file => ({
-      name: file.name,
-      type: file.type,
-      size: file.size
-    }));
+    const attachments =
+      selectedFiles.map(
+        file => ({
+
+          name:
+            file.name,
+
+          type:
+            file.type,
+
+          size:
+            file.size
+
+        })
+      );
 
     const messageText =
       text ||
       "Poslal som prílohu.";
 
     currentChat.messages.push({
-      role: "user",
-      text: messageText,
-      attachments: attachments,
-      timestamp: Date.now()
+
+      role:
+        "user",
+
+      text:
+        messageText,
+
+      attachments:
+        attachments,
+
+      timestamp:
+        Date.now()
+
     });
+
 
     if (
       !currentChat.title ||
@@ -1263,8 +1779,12 @@
 
     }
 
-    document.getElementById("topTitle").textContent =
+
+    document.getElementById(
+      "topTitle"
+    ).textContent =
       currentChat.title;
+
 
     renderUserMessage(
       messageText,
@@ -1272,44 +1792,65 @@
       true
     );
 
-    messageInput.value = "";
-    messageInput.style.height = "auto";
+
+    messageInput.value =
+      "";
+
+    messageInput.style.height =
+      "auto";
 
     selectedFiles = [];
+
     renderAttachments();
 
     await saveCurrentChat();
 
+
     /*
-      Dočasná odpoveď Nexa AI.
-      Neskôr sem môžeme napojiť skutočný AI backend/API.
+      Testovacia odpoveď Nexa AI.
+      Neskôr môžeme napojiť skutočný AI backend.
     */
 
-    setTimeout(async () => {
+    setTimeout(
+      async () => {
 
-      const answer =
-        "Som Nexa AI. Správa bola prijatá. 🤖\n\n" +
-        "Toto je momentálne testovacia odpoveď. " +
-        "AI model môžeme následne napojiť cez backend.";
+        if (!currentChat) return;
 
-      currentChat.messages.push({
-        role: "ai",
-        text: answer,
-        timestamp: Date.now()
-      });
+        const answer =
+          "Som Nexa AI. Správa bola prijatá. 🤖\n\n" +
+          "Toto je momentálne testovacia odpoveď. " +
+          "AI model môžeme následne napojiť cez backend/API.";
 
-      renderAIMessage(answer, true);
+        currentChat.messages.push({
 
-      await saveCurrentChat();
+          role:
+            "ai",
 
-    }, 650);
+          text:
+            answer,
+
+          timestamp:
+            Date.now()
+
+        });
+
+        renderAIMessage(
+          answer,
+          true
+        );
+
+        await saveCurrentChat();
+
+      },
+      650
+    );
 
   };
 
 
-  /* =========================================================
+  /* =====================================================
      USER MESSAGE
-  ========================================================= */
+  ===================================================== */
 
   function renderUserMessage(
     text,
@@ -1317,174 +1858,291 @@
     scroll = true
   ) {
 
-    welcomeEl.style.display = "none";
+    welcomeEl.style.display =
+      "none";
 
-    const wrapper = document.createElement("div");
-    wrapper.className = "message user";
+    const wrapper =
+      document.createElement("div");
 
-    const avatar = document.createElement("div");
-    avatar.className = "message-avatar";
-    avatar.textContent = currentUser
-      ? (
-          currentUser.displayName ||
-          currentUser.email ||
-          "U"
-        ).charAt(0).toUpperCase()
-      : "U";
+    wrapper.className =
+      "message user";
 
-    const content = document.createElement("div");
-    content.className = "message-content";
+    const avatar =
+      document.createElement("div");
 
-    const name = document.createElement("div");
-    name.className = "message-name";
-    name.textContent = currentUser
-      ? (
-          currentUser.displayName ||
-          currentUser.email ||
-          "Ty"
-        )
-      : "Ty";
+    avatar.className =
+      "message-avatar";
 
-    const message = document.createElement("div");
-    message.className = "message-text";
-    message.textContent = text;
+    avatar.textContent =
+      currentUser
+        ? (
+            currentUser.displayName ||
+            currentUser.email ||
+            "U"
+          ).charAt(0).toUpperCase()
+        : "U";
+
+
+    const content =
+      document.createElement("div");
+
+    content.className =
+      "message-content";
+
+
+    const name =
+      document.createElement("div");
+
+    name.className =
+      "message-name";
+
+    name.textContent =
+      currentUser
+        ? (
+            currentUser.displayName ||
+            currentUser.email ||
+            "Ty"
+          )
+        : "Ty";
+
+
+    const message =
+      document.createElement("div");
+
+    message.className =
+      "message-text";
+
+    message.textContent =
+      text;
+
 
     content.appendChild(name);
+
     content.appendChild(message);
+
 
     if (attachments.length > 0) {
 
-      const files = document.createElement("div");
-      files.className = "attachment-preview";
-      files.style.marginTop = "9px";
+      const files =
+        document.createElement("div");
 
-      attachments.forEach(file => {
+      files.className =
+        "attachment-preview";
 
-        const item = document.createElement("div");
-        item.className = "attachment";
-        item.textContent = "📎 " + file.name;
+      files.style.marginTop =
+        "9px";
 
-        files.appendChild(item);
 
-      });
+      attachments.forEach(
+        file => {
+
+          const item =
+            document.createElement("div");
+
+          item.className =
+            "attachment";
+
+          item.textContent =
+            "📎 " + file.name;
+
+          files.appendChild(item);
+
+        }
+      );
+
 
       content.appendChild(files);
 
     }
 
+
     wrapper.appendChild(content);
+
     wrapper.appendChild(avatar);
 
     messagesEl.appendChild(wrapper);
 
-    if (scroll) scrollToBottom();
+
+    if (scroll) {
+      scrollToBottom();
+    }
 
   }
 
 
-  /* =========================================================
+  /* =====================================================
      AI MESSAGE
-  ========================================================= */
+  ===================================================== */
 
-  function renderAIMessage(text, scroll = true) {
-
-    welcomeEl.style.display = "none";
-
-    const wrapper = document.createElement("div");
-    wrapper.className = "message ai";
-
-    const avatar = document.createElement("div");
-    avatar.className = "message-avatar";
-    avatar.textContent = "N";
-
-    const content = document.createElement("div");
-    content.className = "message-content";
-
-    const name = document.createElement("div");
-    name.className = "message-name";
-    name.textContent = "Nexa AI";
-
-    const message = document.createElement("div");
-    message.className = "message-text";
-    message.textContent = text;
-
-    const actions = document.createElement("div");
-    actions.className = "message-actions";
-
-    const speak = document.createElement("button");
-    speak.className = "message-action";
-    speak.textContent = "🔊 Prečítať";
-
-    speak.onclick = () => speakText(text);
-
-    const copy = document.createElement("button");
-    copy.className = "message-action";
-    copy.textContent = "📋 Kopírovať";
-
-    copy.onclick = async () => {
-
-      try {
-
-        await navigator.clipboard.writeText(text);
-        showToast("Skopírované.");
-
-      } catch {
-
-        showToast("Kopírovanie sa nepodarilo.");
-
-      }
-
-    };
-
-    actions.appendChild(speak);
-    actions.appendChild(copy);
-
-    content.appendChild(name);
-    content.appendChild(message);
-    content.appendChild(actions);
-
-    wrapper.appendChild(avatar);
-    wrapper.appendChild(content);
-
-    messagesEl.appendChild(wrapper);
-
-    if (scroll) scrollToBottom();
-
-  }
-
-
-  /* =========================================================
-     CLEAR MESSAGES
-  ========================================================= */
-
-  function clearMessages(showWelcome = true) {
-
-    messagesEl.innerHTML = "";
+  function renderAIMessage(
+    text,
+    scroll = true
+  ) {
 
     welcomeEl.style.display =
-      showWelcome ? "flex" : "none";
+      "none";
+
+    const wrapper =
+      document.createElement("div");
+
+    wrapper.className =
+      "message ai";
+
+
+    const avatar =
+      document.createElement("div");
+
+    avatar.className =
+      "message-avatar";
+
+    avatar.textContent =
+      "N";
+
+
+    const content =
+      document.createElement("div");
+
+    content.className =
+      "message-content";
+
+
+    const name =
+      document.createElement("div");
+
+    name.className =
+      "message-name";
+
+    name.textContent =
+      "Nexa AI";
+
+
+    const message =
+      document.createElement("div");
+
+    message.className =
+      "message-text";
+
+    message.textContent =
+      text;
+
+
+    const actions =
+      document.createElement("div");
+
+    actions.className =
+      "message-actions";
+
+
+    const speak =
+      document.createElement("button");
+
+    speak.className =
+      "message-action";
+
+    speak.textContent =
+      "🔊 Prečítať";
+
+    speak.onclick =
+      () => speakText(text);
+
+
+    const copy =
+      document.createElement("button");
+
+    copy.className =
+      "message-action";
+
+    copy.textContent =
+      "📋 Kopírovať";
+
+    copy.onclick =
+      async () => {
+
+        try {
+
+          await navigator.clipboard
+            .writeText(text);
+
+          showToast(
+            "Skopírované."
+          );
+
+        } catch {
+
+          showToast(
+            "Kopírovanie sa nepodarilo."
+          );
+
+        }
+
+      };
+
+
+    actions.appendChild(speak);
+
+    actions.appendChild(copy);
+
+
+    content.appendChild(name);
+
+    content.appendChild(message);
+
+    content.appendChild(actions);
+
+
+    wrapper.appendChild(avatar);
+
+    wrapper.appendChild(content);
+
+
+    messagesEl.appendChild(wrapper);
+
+
+    if (scroll) {
+      scrollToBottom();
+    }
 
   }
 
 
-  /* =========================================================
+  /* =====================================================
+     CLEAR MESSAGES
+  ===================================================== */
+
+  function clearMessages(
+    showWelcome = true
+  ) {
+
+    messagesEl.innerHTML =
+      "";
+
+    welcomeEl.style.display =
+      showWelcome
+        ? "flex"
+        : "none";
+
+  }
+
+
+  /* =====================================================
      HISTORY
-  ========================================================= */
+  ===================================================== */
 
   function renderHistory() {
 
-    historyEl.innerHTML = "";
+    historyEl.innerHTML =
+      "";
 
-    const ids = Object.keys(chats);
+    const ids =
+      Object.keys(chats);
 
-    ids.sort((a, b) => {
 
-      return (
+    ids.sort(
+      (a, b) =>
         (chats[b].updatedAt || 0) -
         (chats[a].updatedAt || 0)
-      );
+    );
 
-    });
 
     if (ids.length === 0) {
 
@@ -1495,426 +2153,1042 @@
 
     }
 
-    ids.forEach(id => {
 
-      const chat = chats[id];
+    ids.forEach(
+      id => {
 
-      const item = document.createElement("div");
+        const chat =
+          chats[id];
 
-      item.className =
-        "history-item" +
-        (
-          currentChat &&
-          currentChat.id === id
-            ? " active"
-            : ""
-        );
+        const item =
+          document.createElement("div");
 
-      item.textContent =
-        chat.title || "Nový chat";
+        item.className =
+          "history-item" +
+          (
+            currentChat &&
+            currentChat.id === id
+              ? " active"
+              : ""
+          );
 
-      item.title =
-        chat.title || "Nový chat";
 
-      item.onclick = () => loadChat(id);
+        const main =
+          document.createElement("div");
 
-      historyEl.appendChild(item);
+        main.className =
+          "history-main";
 
-    });
+        main.textContent =
+          chat.title ||
+          "Nový chat";
+
+        main.title =
+          chat.title ||
+          "Nový chat";
+
+        main.onclick =
+          () => loadChat(id);
+
+
+        const actions =
+          document.createElement("div");
+
+        actions.className =
+          "history-actions";
+
+
+        /* EDIT */
+
+        const edit =
+          document.createElement("button");
+
+        edit.className =
+          "history-action";
+
+        edit.title =
+          "Premenovať chat";
+
+        edit.textContent =
+          "✏️";
+
+        edit.onclick =
+          event => {
+
+            event.stopPropagation();
+
+            openRenameModal(id);
+
+          };
+
+
+        /* DELETE */
+
+        const del =
+          document.createElement("button");
+
+        del.className =
+          "history-action delete";
+
+        del.title =
+          "Vymazať chat";
+
+        del.textContent =
+          "🗑️";
+
+        del.onclick =
+          event => {
+
+            event.stopPropagation();
+
+            openDeleteModal(id);
+
+          };
+
+
+        actions.appendChild(edit);
+
+        actions.appendChild(del);
+
+
+        item.appendChild(main);
+
+        item.appendChild(actions);
+
+        historyEl.appendChild(item);
+
+      }
+    );
 
   }
 
 
-  /* =========================================================
+  /* =====================================================
+     RENAME CHAT
+  ===================================================== */
+
+  function openRenameModal(id) {
+
+    if (!chats[id]) return;
+
+    renameChatId =
+      id;
+
+    const input =
+      document.getElementById(
+        "renameInput"
+      );
+
+    input.value =
+      chats[id].title ||
+      "";
+
+    document
+      .getElementById(
+        "renameModal"
+      )
+      .classList.add("show");
+
+    setTimeout(
+      () => {
+
+        input.focus();
+
+        input.select();
+
+      },
+      50
+    );
+
+  }
+
+
+  window.closeRenameModal =
+    function() {
+
+      renameChatId =
+        null;
+
+      document
+        .getElementById(
+          "renameModal"
+        )
+        .classList.remove("show");
+
+    };
+
+
+  window.confirmRename =
+    async function() {
+
+      if (!renameChatId) return;
+
+      const input =
+        document.getElementById(
+          "renameInput"
+        );
+
+      const newTitle =
+        input.value.trim();
+
+
+      if (!newTitle) {
+
+        showToast(
+          "Zadaj názov chatu."
+        );
+
+        return;
+
+      }
+
+
+      const chat =
+        chats[renameChatId];
+
+      if (!chat) return;
+
+
+      chat.title =
+        newTitle.substring(0, 80);
+
+      chat.updatedAt =
+        Date.now();
+
+
+      chats[renameChatId] =
+        chat;
+
+
+      if (
+        currentChat &&
+        currentChat.id === renameChatId
+      ) {
+
+        currentChat =
+          chat;
+
+        document.getElementById(
+          "topTitle"
+        ).textContent =
+          chat.title;
+
+      }
+
+
+      if (currentUser) {
+
+        try {
+
+          await set(
+            ref(
+              db,
+              `users/${currentUser.uid}/chats/${renameChatId}`
+            ),
+            chat
+          );
+
+        } catch (error) {
+
+          console.error(error);
+
+          showToast(
+            "Názov sa nepodarilo uložiť."
+          );
+
+          return;
+
+        }
+
+      }
+
+
+      renderHistory();
+
+      closeRenameModal();
+
+      showToast(
+        "Chat bol premenovaný."
+      );
+
+    };
+
+
+  /* =====================================================
+     DELETE CHAT
+  ===================================================== */
+
+  function openDeleteModal(id) {
+
+    if (!chats[id]) return;
+
+    deleteChatId =
+      id;
+
+    const title =
+      chats[id].title ||
+      "tento chat";
+
+    document.getElementById(
+      "deleteText"
+    ).textContent =
+      `Naozaj chceš vymazať chat „${title}“? Táto akcia sa nedá vrátiť späť.`;
+
+    document
+      .getElementById(
+        "deleteModal"
+      )
+      .classList.add("show");
+
+  }
+
+
+  window.closeDeleteModal =
+    function() {
+
+      deleteChatId =
+        null;
+
+      document
+        .getElementById(
+          "deleteModal"
+        )
+        .classList.remove("show");
+
+    };
+
+
+  window.confirmDelete =
+    async function() {
+
+      if (!deleteChatId) return;
+
+      const id =
+        deleteChatId;
+
+
+      try {
+
+        if (currentUser) {
+
+          await remove(
+            ref(
+              db,
+              `users/${currentUser.uid}/chats/${id}`
+            )
+          );
+
+        }
+
+
+        delete chats[id];
+
+
+        if (
+          currentChat &&
+          currentChat.id === id
+        ) {
+
+          currentChat =
+            null;
+
+          clearMessages();
+
+          document.getElementById(
+            "topTitle"
+          ).textContent =
+            "Nexa AI";
+
+        }
+
+
+        renderHistory();
+
+        closeDeleteModal();
+
+        showToast(
+          "Chat bol vymazaný."
+        );
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showToast(
+          "Chat sa nepodarilo vymazať."
+        );
+
+      }
+
+    };
+
+
+  /* =====================================================
      FILES
-  ========================================================= */
+  ===================================================== */
 
-  window.handleFiles = function(event) {
+  window.handleFiles =
+    function(event) {
 
-    const files =
-      Array.from(event.target.files);
+      const files =
+        Array.from(
+          event.target.files
+        );
 
-    selectedFiles.push(...files);
+      selectedFiles.push(
+        ...files
+      );
 
-    renderAttachments();
+      renderAttachments();
 
-    event.target.value = "";
+      event.target.value =
+        "";
 
-  };
+    };
 
 
   function renderAttachments() {
 
-    attachmentPreview.innerHTML = "";
+    attachmentPreview.innerHTML =
+      "";
 
-    selectedFiles.forEach((file, index) => {
+    selectedFiles.forEach(
+      (file, index) => {
 
-      const item = document.createElement("div");
-      item.className = "attachment";
+        const item =
+          document.createElement("div");
 
-      const name = document.createElement("span");
-      name.textContent = "📎 " + file.name;
+        item.className =
+          "attachment";
 
-      const remove = document.createElement("button");
-      remove.textContent = "×";
 
-      remove.onclick = () => {
+        const name =
+          document.createElement("span");
 
-        selectedFiles.splice(index, 1);
-        renderAttachments();
+        name.textContent =
+          "📎 " + file.name;
 
-      };
 
-      item.appendChild(name);
-      item.appendChild(remove);
+        const removeButton =
+          document.createElement("button");
 
-      attachmentPreview.appendChild(item);
+        removeButton.textContent =
+          "×";
 
-    });
+        removeButton.onclick =
+          () => {
+
+            selectedFiles.splice(
+              index,
+              1
+            );
+
+            renderAttachments();
+
+          };
+
+
+        item.appendChild(name);
+
+        item.appendChild(
+          removeButton
+        );
+
+        attachmentPreview.appendChild(
+          item
+        );
+
+      }
+    );
 
   }
 
 
-  /* =========================================================
+  /* =====================================================
      MICROPHONE
-  ========================================================= */
+  ===================================================== */
 
-  window.startMicrophone = function() {
+  window.startMicrophone =
+    function() {
 
-    showToast("🎤 Mikrofón sa pripravuje…");
+      showToast(
+        "🎤 Mikrofón sa pripravuje…"
+      );
 
-  };
+    };
 
 
-  /* =========================================================
-     SPEECH SYNTHESIS
-  ========================================================= */
+  /* =====================================================
+     SPEECH
+  ===================================================== */
 
   function speakText(text) {
 
-    if (!("speechSynthesis" in window)) {
+    if (
+      !("speechSynthesis" in window)
+    ) {
 
-      showToast("Prehrávanie hlasu nie je podporované.");
+      showToast(
+        "Prehrávanie hlasu nie je podporované."
+      );
+
       return;
 
     }
 
+
     window.speechSynthesis.cancel();
 
+
     const utterance =
-      new SpeechSynthesisUtterance(text);
+      new SpeechSynthesisUtterance(
+        text
+      );
 
-    utterance.lang = "sk-SK";
-    utterance.rate = 1;
-    utterance.pitch = 1;
+    utterance.lang =
+      "sk-SK";
 
-    window.speechSynthesis.speak(utterance);
+    utterance.rate =
+      1;
+
+    utterance.pitch =
+      1;
+
+
+    window.speechSynthesis.speak(
+      utterance
+    );
 
   }
 
 
-  /* =========================================================
+  /* =====================================================
      CAMERA
-  ========================================================= */
+  ===================================================== */
 
-  window.showCamera = async function() {
+  window.showCamera =
+    async function() {
 
-    const modal =
-      document.getElementById("cameraModal");
-
-    const video =
-      document.getElementById("cameraVideo");
-
-    try {
-
-      cameraStream =
-        await navigator.mediaDevices.getUserMedia({
-          video: true,
-          audio: false
-        });
-
-      video.srcObject = cameraStream;
-
-      modal.classList.add("show");
-
-    } catch (error) {
-
-      console.error(error);
-
-      showToast(
-        "Kameru sa nepodarilo spustiť. Skontroluj povolenia."
-      );
-
-    }
-
-  };
-
-
-  window.closeCamera = function() {
-
-    const modal =
-      document.getElementById("cameraModal");
-
-    const video =
-      document.getElementById("cameraVideo");
-
-    if (cameraStream) {
-
-      cameraStream
-        .getTracks()
-        .forEach(track => track.stop());
-
-      cameraStream = null;
-
-    }
-
-    video.srcObject = null;
-
-    modal.classList.remove("show");
-
-  };
-
-
-  window.capturePhoto = function() {
-
-    const video =
-      document.getElementById("cameraVideo");
-
-    if (!video.videoWidth) {
-
-      showToast("Kamera ešte nie je pripravená.");
-      return;
-
-    }
-
-    const canvas =
-      document.createElement("canvas");
-
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-
-    const ctx =
-      canvas.getContext("2d");
-
-    ctx.drawImage(
-      video,
-      0,
-      0,
-      canvas.width,
-      canvas.height
-    );
-
-    canvas.toBlob(blob => {
-
-      if (!blob) return;
-
-      const file =
-        new File(
-          [blob],
-          "nexa-camera.jpg",
-          { type: "image/jpeg" }
+      const modal =
+        document.getElementById(
+          "cameraModal"
         );
 
-      selectedFiles.push(file);
-
-      renderAttachments();
-
-      closeCamera();
-
-      showToast("📸 Fotografia bola pridaná.");
-
-    }, "image/jpeg", 0.9);
-
-  };
+      const video =
+        document.getElementById(
+          "cameraVideo"
+        );
 
 
-  /* =========================================================
-     SCREEN SHARE
-  ========================================================= */
+      try {
 
-  window.shareScreen = async function() {
+        cameraStream =
+          await navigator
+            .mediaDevices
+            .getUserMedia({
 
-    if (!navigator.mediaDevices?.getDisplayMedia) {
+              video:
+                true,
 
-      showToast(
-        "Zdieľanie obrazovky nie je podporované."
-      );
+              audio:
+                false
 
-      return;
+            });
 
-    }
 
-    try {
+        video.srcObject =
+          cameraStream;
 
-      screenStream =
-        await navigator.mediaDevices.getDisplayMedia({
-          video: true,
-          audio: true
-        });
+        modal.classList.add(
+          "show"
+        );
 
-      showToast(
-        "🖥️ Zdieľanie obrazovky je aktívne."
-      );
 
-      const track =
-        screenStream.getVideoTracks()[0];
+      } catch (error) {
 
-      track.addEventListener("ended", () => {
-
-        screenStream = null;
+        console.error(error);
 
         showToast(
-          "Zdieľanie obrazovky bolo ukončené."
+          "Kameru sa nepodarilo spustiť. Skontroluj povolenia."
         );
 
-      });
+      }
 
-    } catch (error) {
+    };
 
-      console.error(error);
 
-      showToast(
-        "Zdieľanie obrazovky bolo zrušené."
+  window.closeCamera =
+    function() {
+
+      const modal =
+        document.getElementById(
+          "cameraModal"
+        );
+
+      const video =
+        document.getElementById(
+          "cameraVideo"
+        );
+
+
+      if (cameraStream) {
+
+        cameraStream
+          .getTracks()
+          .forEach(
+            track =>
+              track.stop()
+          );
+
+        cameraStream =
+          null;
+
+      }
+
+
+      video.srcObject =
+        null;
+
+      modal.classList.remove(
+        "show"
       );
 
-    }
-
-  };
+    };
 
 
-  /* =========================================================
+  window.capturePhoto =
+    function() {
+
+      const video =
+        document.getElementById(
+          "cameraVideo"
+        );
+
+
+      if (!video.videoWidth) {
+
+        showToast(
+          "Kamera ešte nie je pripravená."
+        );
+
+        return;
+
+      }
+
+
+      const canvas =
+        document.createElement(
+          "canvas"
+        );
+
+      canvas.width =
+        video.videoWidth;
+
+      canvas.height =
+        video.videoHeight;
+
+
+      const ctx =
+        canvas.getContext(
+          "2d"
+        );
+
+
+      ctx.drawImage(
+        video,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+
+      canvas.toBlob(
+        blob => {
+
+          if (!blob) return;
+
+
+          const file =
+            new File(
+              [blob],
+              "nexa-camera.jpg",
+              {
+                type:
+                  "image/jpeg"
+              }
+            );
+
+
+          selectedFiles.push(
+            file
+          );
+
+          renderAttachments();
+
+          closeCamera();
+
+          showToast(
+            "📸 Fotografia bola pridaná."
+          );
+
+        },
+        "image/jpeg",
+        0.9
+      );
+
+    };
+
+
+  /* =====================================================
+     SCREEN SHARE
+  ===================================================== */
+
+  window.shareScreen =
+    async function() {
+
+      if (
+        !navigator.mediaDevices?.getDisplayMedia
+      ) {
+
+        showToast(
+          "Zdieľanie obrazovky nie je podporované."
+        );
+
+        return;
+
+      }
+
+
+      try {
+
+        screenStream =
+          await navigator
+            .mediaDevices
+            .getDisplayMedia({
+
+              video:
+                true,
+
+              audio:
+                true
+
+            });
+
+
+        showToast(
+          "🖥️ Zdieľanie obrazovky je aktívne."
+        );
+
+
+        const track =
+          screenStream
+            .getVideoTracks()[0];
+
+
+        track.addEventListener(
+          "ended",
+          () => {
+
+            screenStream =
+              null;
+
+            showToast(
+              "Zdieľanie obrazovky bolo ukončené."
+            );
+
+          }
+        );
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showToast(
+          "Zdieľanie obrazovky bolo zrušené."
+        );
+
+      }
+
+    };
+
+
+  /* =====================================================
      TEXTAREA
-  ========================================================= */
+  ===================================================== */
 
-  window.autoResize = function(textarea) {
+  window.autoResize =
+    function(textarea) {
 
-    textarea.style.height = "auto";
+      textarea.style.height =
+        "auto";
 
-    textarea.style.height =
-      Math.min(textarea.scrollHeight, 150) + "px";
+      textarea.style.height =
+        Math.min(
+          textarea.scrollHeight,
+          150
+        ) + "px";
 
-  };
-
-
-  window.handleEnter = function(event) {
-
-    if (
-      event.key === "Enter" &&
-      !event.shiftKey
-    ) {
-
-      event.preventDefault();
-
-      sendMessage();
-
-    }
-
-  };
+    };
 
 
-  /* =========================================================
+  window.handleEnter =
+    function(event) {
+
+      if (
+        event.key === "Enter" &&
+        !event.shiftKey
+      ) {
+
+        event.preventDefault();
+
+        sendMessage();
+
+      }
+
+    };
+
+
+  /* =====================================================
      SCROLL
-  ========================================================= */
+  ===================================================== */
 
   function scrollToBottom() {
 
     const area =
-      document.getElementById("chatArea");
+      document.getElementById(
+        "chatArea"
+      );
 
-    setTimeout(() => {
 
-      area.scrollTo({
-        top: area.scrollHeight,
-        behavior: "smooth"
-      });
+    setTimeout(
+      () => {
 
-    }, 30);
+        area.scrollTo({
+
+          top:
+            area.scrollHeight,
+
+          behavior:
+            "smooth"
+
+        });
+
+      },
+      30
+    );
 
   }
 
 
-  /* =========================================================
+  /* =====================================================
      TOAST
-  ========================================================= */
+  ===================================================== */
 
-  let toastTimer = null;
-
-  window.showToast = function(message) {
-
-    const toast =
-      document.getElementById("toast");
-
-    toast.textContent = message;
-    toast.classList.add("show");
-
-    clearTimeout(toastTimer);
-
-    toastTimer = setTimeout(() => {
-
-      toast.classList.remove("show");
-
-    }, 2800);
-
-  };
+  let toastTimer =
+    null;
 
 
-  /* =========================================================
-     CLOSE USER MENU WHEN CLICKING OUTSIDE
-  ========================================================= */
+  window.showToast =
+    function(message) {
 
-  document.addEventListener("click", event => {
+      const toast =
+        document.getElementById(
+          "toast"
+        );
 
-    const menu =
-      document.getElementById("userMenu");
 
-    const profile =
-      document.getElementById("profileButton");
+      toast.textContent =
+        message;
 
-    if (
-      !menu.contains(event.target) &&
-      !profile.contains(event.target)
-    ) {
+      toast.classList.add(
+        "show"
+      );
 
-      menu.classList.remove("show");
+
+      clearTimeout(
+        toastTimer
+      );
+
+
+      toastTimer =
+        setTimeout(
+          () => {
+
+            toast.classList.remove(
+              "show"
+            );
+
+          },
+          2800
+        );
+
+    };
+
+
+  /* =====================================================
+     OUTSIDE USER MENU
+  ===================================================== */
+
+  document.addEventListener(
+    "click",
+    event => {
+
+      const menu =
+        document.getElementById(
+          "userMenu"
+        );
+
+      const profile =
+        document.getElementById(
+          "profileButton"
+        );
+
+
+      if (
+        !menu.contains(
+          event.target
+        ) &&
+        !profile.contains(
+          event.target
+        )
+      ) {
+
+        menu.classList.remove(
+          "show"
+        );
+
+      }
 
     }
+  );
 
-  });
+
+  /* =====================================================
+     MODAL BACKDROP CLOSE
+  ===================================================== */
+
+  document
+    .getElementById("renameModal")
+    .addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          event.currentTarget
+        ) {
+
+          closeRenameModal();
+
+        }
+
+      }
+    );
 
 
-  /* =========================================================
+  document
+    .getElementById("deleteModal")
+    .addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          event.currentTarget
+        ) {
+
+          closeDeleteModal();
+
+        }
+
+      }
+    );
+
+
+  document
+    .getElementById("cameraModal")
+    .addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          event.currentTarget
+        ) {
+
+          closeCamera();
+
+        }
+
+      }
+    );
+
+
+  /* =====================================================
+     KEYBOARD SHORTCUTS
+  ===================================================== */
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Escape"
+      ) {
+
+        closeRenameModal();
+
+        closeDeleteModal();
+
+        closeCamera();
+
+      }
+
+    }
+  );
+
+
+  /* =====================================================
      PAGE CLOSE
-  ========================================================= */
+  ===================================================== */
 
-  window.addEventListener("beforeunload", () => {
+  window.addEventListener(
+    "beforeunload",
+    () => {
 
-    /*
-      Firebase ukladá správy priebežne po odoslaní,
-      takže chat sa nestratí pri obnovení stránky.
-    */
+      if (cameraStream) {
 
-    if (cameraStream) {
+        cameraStream
+          .getTracks()
+          .forEach(
+            track =>
+              track.stop()
+          );
 
-      cameraStream
-        .getTracks()
-        .forEach(track => track.stop());
+      }
+
+
+      if (screenStream) {
+
+        screenStream
+          .getTracks()
+          .forEach(
+            track =>
+              track.stop()
+          );
+
+      }
 
     }
-
-    if (screenStream) {
-
-      screenStream
-        .getTracks()
-        .forEach(track => track.stop());
-
-    }
-
-  });
+  );
 
 
-  /* =========================================================
+  /* =====================================================
      START
-  ========================================================= */
+  ===================================================== */
 
   renderHistory();
 
